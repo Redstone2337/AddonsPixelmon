@@ -1,0 +1,42 @@
+{
+  "spec": "type1:BUG",
+  "durations": [
+    {
+      "type": "add",
+      "amount": 90,
+      "unit": "MINUTES"
+    }
+  ],
+  "requirements": [
+    {
+      "type": "itemstack",
+      "error_message": "2x 蒲公英",
+      "items": [
+        {
+          "item": "minecraft:dandelion",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "type": "itemstack",
+      "error_message": "3x 蜘蛛网",
+      "items": [
+        {
+          "item": "minecraft:cobweb",
+          "amount": 3
+        }
+      ]
+    },
+    {
+      "type": "itemstack",
+      "error_message": "3x 蜘蛛眼",
+      "items": [
+        {
+          "item": "minecraft:spider_eye",
+          "amount": 3
+        }
+      ]
+    }
+  ]
+}
