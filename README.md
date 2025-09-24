@@ -7,7 +7,7 @@ Addons Pixelmon Mod is an extremely simple extension mod designed specifically f
 
 Mod Information
 =======
-- Version: 0.1+build.1
+- Version: 0.1+build.2
 - Author: Redstone233, other development team members
 - Type: Data pack mod
 - Supported Versions: Please select the corresponding mod version based on your actual Minecraft and Pixelmon versions
