@@ -1,25 +1,32 @@
-
-Installation information
+Addons Pixelmon Mod Introduction
 =======
 
-This template repository can be directly cloned to get you started with a new
-mod. Simply create a new repository cloned from this one, by following the
-instructions provided by [GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+Overview
+=======
+Addons Pixelmon Mod is an extremely simple extension mod designed specifically for Pixelmon, primarily centered around data packs. This mod is based on data packs and implements global loading of data packs, greatly simplifying their management and usage.
 
-Once you have your clone, simply open the repository in the IDE of your choice. The usual recommendation for an IDE is either IntelliJ IDEA or Eclipse.
+Mod Information
+=======
+- Version: 0.1+build.1
+- Author: Redstone233, other development team members
+- Type: Data pack mod
+- Supported Versions: Please select the corresponding mod version based on your actual Minecraft and Pixelmon versions
 
-If at any point you are missing libraries in your IDE, or you've run into problems you can
-run `gradlew --refresh-dependencies` to refresh the local cache. `gradlew clean` to reset everything 
-{this does not affect your code} and then start the process again.
+Prerequisites
+=======
+- Minecraft installed
+- Pixelmon mod installed
+- NeoForged (or Forge) installed as the mod loader
+- Java installed (Java 21 or higher recommended)
 
-Mapping Names:
-============
-By default, the MDK is configured to use the official mapping names from Mojang for methods and fields 
-in the Minecraft codebase. These names are covered by a specific license. All modders should be aware of this
-license. For the latest license text, refer to the mapping file itself, or the reference copy here:
-https://github.com/NeoForged/NeoForm/blob/main/Mojang.md
+Version Requirements
+=======
+- Minecraft 1.21.1
+- NeoForge 21.1.209 (21.1.209 or higher)
+- Pixelmon 9.3.8 (9.3.8 or higher)
+- Java 21 (21 or higher)
 
-Additional Resources: 
-==========
-Community Documentation: https://docs.neoforged.net/  
-NeoForged Discord: https://discord.neoforged.net/
+Other Languages
+=======
+- [English](README.md)
+- [简体中文](README.zh.md)
