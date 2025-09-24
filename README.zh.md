@@ -7,7 +7,7 @@ Addons Pixelmon Mod 是一个极其简单的扩展模组，专为 Pixelmon 设�
 
 模组信息
 =======
-- 版本: 0.1+build.1
+- 版本: 0.1+build.2
 - 作者: Redstone233，其他开发团队
 - 类型: 数据包类模组
 - 适用版本: 请根据实际 Minecraft 和 Pixelmon 版本选择对应模组版本
@@ -28,5 +28,5 @@ Addons Pixelmon Mod 是一个极其简单的扩展模组，专为 Pixelmon 设�
 
 其他语言
 =======
-- [English](README.mmd)
+- [English](README.md)
 - [简体中文](README.zh.md)
