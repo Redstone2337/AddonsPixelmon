@@ -1,0 +1,379 @@
+{
+  "stages": [
+    {
+      "objectives": [],
+      "result": [
+        {
+          "type": "pixelmon:close_screen"
+        },
+        {
+          "type": "pixelmon:open_professor_dialogue",
+          "dialogue": {
+            "pages": [
+              {
+                "title": " 紫藤博士 ",
+                "text": "你好，训练家，又见面了！ 看起来你刚才和野生的超级进化宝可梦打了一场艰难的战斗。"
+              },
+              {
+                "title": " 紫藤博士 ",
+                "text": "我已经研究超级进化有段时间了， 我认为你已经拥有资格、解锁超级进化的力量。"
+              },
+              {
+                "title": " 紫藤博士 ",
+                "text": "为了解锁超级进化的力量，我需要你完成一系列课题。 在你完成之后，我相信我们能一起解锁超级进化的力量。"
+              },
+              {
+                "title": " 紫藤博士 ",
+                "text": "首先，我需要你帮我收集一些材料。 在你收集齐全之后我会给你更进一步的指示。"
+              }
+            ],
+            "rendering_handler": {
+              "type": "pixelmon:player",
+              "slim": true,
+              "texture": "pixelmon:textures/steve/professorwisteria.png"
+            }
+          }
+        }
+      ],
+      "result_sprites": [
+        {
+          "resource": "pixelmon:textures/item/npceditor.png"
+        }
+      ]
+    },
+    {
+      "objectives": [
+        {
+          "event": "pixelmon:break_block",
+          "condition": {
+            "type": "pixelmon:block_is_one_of",
+            "blocks": [
+              "minecraft:iron_ore",
+              "minecraft:deepslate_iron_ore"
+            ],
+            "block": {
+              "type": "pixelmon:context_block_state"
+            }
+          },
+          "result": [
+            {
+              "type": "pixelmon:give_money",
+              "money": 500.0
+            }
+          ],
+          "required_amount": 64,
+          "name": {
+            "translate": "research.unlock.mega.iron_ore",
+            "fallback": "Mine 64 Iron Ore"
+          },
+          "sprite": "pixelmon:textures/gui/research/money_pouch.png"
+        },
+        {
+          "event": "pixelmon:break_block",
+          "condition": {
+            "type": "pixelmon:block_is_one_of",
+            "blocks": [
+              "pixelmon:crystal_ore",
+              "pixelmon:deepslate_crystal_ore"
+            ],
+            "block": {
+              "type": "pixelmon:context_block_state"
+            }
+          },
+          "result": [
+            {
+              "type": "pixelmon:give_money",
+              "money": 500.0
+            }
+          ],
+          "required_amount": 16,
+          "name": {
+            "translate": "research.unlock.mega.ruby_ore",
+            "fallback": "Mine 16 Crystal Ore"
+          },
+          "sprite": "pixelmon:textures/gui/research/money_pouch.png"
+        },
+        {
+          "event": "pixelmon:break_block",
+          "condition": {
+            "type": "pixelmon:block_is_one_of",
+            "blocks": [
+              "pixelmon:sapphire_ore",
+              "pixelmon:deepslate_sapphire_ore"
+            ],
+            "block": {
+              "type": "pixelmon:context_block_state"
+            }
+          },
+          "result": [
+            {
+              "type": "pixelmon:give_money",
+              "money": 500.0
+            }
+          ],
+          "required_amount": 8,
+          "name": {
+            "translate": "research.unlock.mega.sapphire_ore",
+            "fallback": "Mine 8 Sapphire Ore"
+          },
+          "sprite": "pixelmon:textures/gui/research/money_pouch.png"
+        }
+      ],
+      "result": [
+        {
+          "type": "pixelmon:give_money",
+          "money": 500.0
+        },
+        {
+          "type": "pixelmon:give_experience",
+          "exp": 250.0
+        },
+        {
+          "type": "pixelmon:close_screen"
+        },
+        {
+          "type": "pixelmon:open_professor_dialogue",
+          "dialogue": {
+            "pages": [
+              {
+                "title": " 紫藤博士 ",
+                "text": "感谢你和你的帮助，训练家！ 你已经收集齐制造超级环所必须的材料。 我想我们准备好继续了。"
+              },
+              {
+                "title": " 紫藤博士 ",
+                "text": "接下来，我需要你完成一系列课题，解锁超级进化的力量。"
+              },
+              {
+                "title": " 紫藤博士 ",
+                "text": "在你完成之后，我相信我们能一起解锁超级进化的力量。"
+              }
+            ],
+            "rendering_handler": {
+              "type": "pixelmon:player",
+              "slim": true,
+              "texture": "pixelmon:textures/steve/professorwisteria.png"
+            }
+          }
+        }
+      ],
+      "result_sprites": [
+        {
+          "resource": "pixelmon:textures/gui/research/money_pouch.png",
+          "description": {
+            "text": "₽500"
+          }
+        },
+        {
+          "resource": "minecraft:textures/item/experience_bottle.png",
+          "description": {
+            "text": "250 XP"
+          }
+        }
+      ]
+    },
+    {
+      "objectives": [
+        {
+          "event": "pixelmon:evolve_pokemon",
+          "condition": {
+            "type": "pixelmon:true"
+          },
+          "result": [
+            {
+              "type": "pixelmon:give_money",
+              "money": 500.0
+            }
+          ],
+          "required_amount": 15,
+          "name": {
+            "translate": "research.unlock.mega.evolve.15",
+            "fallback": "Evolve 15 Pokémon"
+          },
+          "sprite": "pixelmon:textures/gui/research/money_pouch.png"
+        },
+        {
+          "event": "pixelmon:knockout_pokemon",
+          "condition": {
+            "type": "pixelmon:true"
+          },
+          "result": [
+            {
+              "type": "pixelmon:give_money",
+              "money": 500.0
+            }
+          ],
+          "required_amount": 30,
+          "name": {
+            "translate": "research.unlock.mega.defeat.30",
+            "fallback": "Defeat 30 Pokémon"
+          },
+          "sprite": "pixelmon:textures/gui/research/money_pouch.png"
+        },
+        {
+          "event": "pixelmon:knockout_pokemon",
+          "condition": {
+            "type": "pixelmon:spec_matches_entity",
+            "pokemon" : {
+              "type": "pixelmon:context_pokemon_entity",
+              "key": "pixelmon:pokemon_entity"
+            },
+            "spec": "isboss"
+          },
+          "result": [
+            {
+              "type": "pixelmon:give_money",
+              "money": 500.0
+            }
+          ],
+          "required_amount": 20,
+          "name": {
+            "translate": "research.unlock.mega.defeat.boss.20",
+            "fallback": "Defeat 20 Boss Pokémon"
+          },
+          "sprite": "pixelmon:textures/gui/research/money_pouch.png"
+        }
+      ],
+      "result": [
+        {
+          "type": "pixelmon:give_money",
+          "money": 500.0
+        },
+        {
+          "type": "pixelmon:give_experience",
+          "exp": 250.0
+        },
+        {
+          "type": "pixelmon:close_screen"
+        },
+        {
+          "type": "pixelmon:open_professor_dialogue",
+          "dialogue": {
+            "pages": [
+              {
+                "title": " 紫藤博士 ",
+                "text": "干得漂亮，训练家！你完成了我设置给你的这些课题。 我想我们准备好解锁超级进化的力量了。"
+              },
+              {
+                "title": " 紫藤博士 ",
+                "text": "剩下来的就只有打败若干世界上最强悍的宝可梦了。 在你做到之后，我相信我们能一起解锁超级进化的力量。"
+              }
+            ],
+            "rendering_handler": {
+              "type": "pixelmon:player",
+              "slim": true,
+              "texture": "pixelmon:textures/steve/professorwisteria.png"
+            }
+          }
+        }
+      ],
+      "result_sprites": [
+        {
+          "resource": "pixelmon:textures/gui/research/money_pouch.png",
+          "description": {
+            "text": "₽500"
+          }
+        },
+        {
+          "resource": "minecraft:textures/item/experience_bottle.png",
+          "description": {
+            "text": "250 XP"
+          }
+        }
+      ]
+    },
+    {
+      "objectives": [
+        {
+          "event": "pixelmon:knockout_pokemon",
+          "condition": {
+            "type": "pixelmon:spec_matches_entity",
+            "pokemon" : {
+              "type": "pixelmon:context_pokemon_entity",
+              "key": "pixelmon:pokemon_entity"
+            },
+            "spec": "boss:epic OR boss:legendary OR boss:ultimate"
+          },
+          "result": [
+            {
+              "type": "pixelmon:give_money",
+              "money": 500.0
+            }
+          ],
+          "required_amount": 10,
+          "name": {
+            "translate": "research.unlock.mega.defeat.boss.10",
+            "fallback": "Defeat 10 Mega Boss Pokémon"
+          },
+          "sprite": "pixelmon:textures/gui/research/money_pouch.png"
+        }
+      ],
+      "result": [
+        {
+          "type": "pixelmon:give_money",
+          "money": 500.0
+        },
+        {
+          "type": "pixelmon:give_experience",
+          "exp": 250.0
+        },
+        {
+          "type": "pixelmon:unlock_mega_evolution"
+        },
+        {
+          "type": "pixelmon:close_screen"
+        },
+        {
+          "type": "pixelmon:open_professor_dialogue",
+          "dialogue": {
+            "pages": [
+              {
+                "title": " 紫藤博士 ",
+                "text": "祝贺你，训练家！你完成了我设置给你的所有课题。"
+              },
+              {
+                "title": " 紫藤博士 ",
+                "text": "我要给予你一件能使你将宝可梦超级进化的特殊物品。 使用时多多谨慎，同时记住强大的力量肩负着巨大的责任。"
+              },
+              {
+                "title": " 紫藤博士 ",
+                "text": "在物品栏展开同行队伍旁边的折叠界面，你就可以选择戴上，或者取下超级环。 祝你好运了，训练家！"
+              }
+            ],
+            "rendering_handler": {
+              "type": "pixelmon:player",
+              "slim": true,
+              "texture": "pixelmon:textures/steve/professorwisteria.png"
+            }
+          }
+        }
+      ],
+      "result_sprites": [
+        {
+          "resource": "pixelmon:textures/gui/research/money_pouch.png",
+          "description": {
+            "text": "₽500"
+          }
+        },
+        {
+          "resource": "pixelmon:textures/gui/inventory/keystone.png",
+          "description": {
+            "text": "钥石"
+          }
+        },
+        {
+          "resource": "minecraft:textures/item/experience_bottle.png",
+          "description": {
+            "text": "250 XP"
+          }
+        }
+      ]
+    }
+  ],
+  "abandonable": false,
+  "repeatable": false,
+  "unique": true,
+  "name": {
+    "translate": "research.unlock.mega",
+    "fallback": "A Mega Discovery"
+  }
+}
