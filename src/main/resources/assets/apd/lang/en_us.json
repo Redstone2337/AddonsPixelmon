@@ -1,0 +1,13 @@
+{
+  "itemGroup.apd": "Example Mod Tab",
+  "block.apd.example_block": "Example Block",
+  "item.apd.example_item": "Example Item",
+
+  "apd.configuration.title": "Addons Pixelmon Configs",
+  "apd.configuration.section.apd.common.toml": "Addons Pixelmon Configs",
+  "apd.configuration.section.apd.common.toml.title": "Addons Pixelmon Configs",
+  "apd.configuration.items": "Item List",
+  "apd.configuration.logDirtBlock": "Log Dirt Block",
+  "apd.configuration.magicNumberIntroduction": "Magic Number Text",
+  "apd.configuration.magicNumber": "Magic Number"
+}
