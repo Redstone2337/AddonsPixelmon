@@ -1,0 +1,42 @@
+{
+  "spec": "type1:DARK",
+  "durations": [
+    {
+      "type": "add",
+      "amount": 90,
+      "unit": "MINUTES"
+    }
+  ],
+  "requirements": [
+    {
+      "type": "itemstack",
+      "error_message": "2x 煤炭块",
+      "items": [
+        {
+          "item": "minecraft:coal_block",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "type": "itemstack",
+      "error_message": "1x 骷髅头颅",
+      "items": [
+        {
+          "item": "minecraft:skeleton_skull",
+          "amount": 1
+        }
+      ]
+    },
+    {
+      "type": "itemstack",
+      "error_message": "1x 黑曜石",
+      "items": [
+        {
+          "item": "minecraft:obsidian",
+          "amount": 1
+        }
+      ]
+    }
+  ]
+}

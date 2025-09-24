@@ -1,0 +1,42 @@
+{
+  "spec": "type1:NORMAL",
+  "durations": [
+    {
+      "type": "add",
+      "amount": 90,
+      "unit": "MINUTES"
+    }
+  ],
+  "requirements": [
+    {
+      "type": "itemstack",
+      "error_message": "10x 皮革",
+      "items": [
+        {
+          "item": "minecraft:leather",
+          "amount": 10
+        }
+      ]
+    },
+    {
+      "type": "itemstack",
+      "error_message": "3x 干草捆",
+      "items": [
+        {
+          "item": "minecraft:hay_block",
+          "amount": 3
+        }
+      ]
+    },
+    {
+      "type": "itemstack",
+      "error_message": "3x 白色羊毛",
+      "items": [
+        {
+          "item": "minecraft:white_wool",
+          "amount": 3
+        }
+      ]
+    }
+  ]
+}

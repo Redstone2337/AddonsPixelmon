@@ -1,0 +1,42 @@
+{
+  "spec": "type1:ELECTRIC",
+  "durations": [
+    {
+      "type": "add",
+      "amount": 90,
+      "unit": "MINUTES"
+    }
+  ],
+  "requirements": [
+    {
+      "type": "itemstack",
+      "error_message": "2x 红石块",
+      "items": [
+        {
+          "item": "minecraft:redstone_block",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "type": "itemstack",
+      "error_message": "3x 荧石",
+      "items": [
+        {
+          "item": "minecraft:glowstone",
+          "amount": 3
+        }
+      ]
+    },
+    {
+      "type": "itemstack",
+      "error_message": "2x 红石灯",
+      "items": [
+        {
+          "item": "minecraft:redstone_lamp",
+          "amount": 2
+        }
+      ]
+    }
+  ]
+}

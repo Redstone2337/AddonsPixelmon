@@ -1,0 +1,42 @@
+{
+  "spec": "type1:FIGHTING",
+  "durations": [
+    {
+      "type": "add",
+      "amount": 90,
+      "unit": "MINUTES"
+    }
+  ],
+  "requirements": [
+    {
+      "type": "itemstack",
+      "error_message": "3x 橡木木板",
+      "items": [
+        {
+          "item": "minecraft:oak_planks",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "type": "itemstack",
+      "error_message": "2x 红砖块",
+      "items": [
+        {
+          "item": "minecraft:bricks",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "type": "itemstack",
+      "error_message": "2x 神社砖",
+      "items": [
+        {
+          "item": "pixelmon:temple_brick",
+          "amount": 2
+        }
+      ]
+    }
+  ]
+}

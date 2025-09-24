@@ -1,0 +1,42 @@
+{
+  "spec": "type1:STEEL",
+  "durations": [
+    {
+      "type": "add",
+      "amount": 90,
+      "unit": "MINUTES"
+    }
+  ],
+  "requirements": [
+    {
+      "type": "itemstack",
+      "error_message": "3x 铁块",
+      "items": [
+        {
+          "item": "minecraft:iron_block",
+          "amount": 3
+        }
+      ]
+    },
+    {
+      "type": "itemstack",
+      "error_message": "3x 铁栏杆",
+      "items": [
+        {
+          "item": "minecraft:iron_bars",
+          "amount": 3
+        }
+      ]
+    },
+    {
+      "type": "itemstack",
+      "error_message": "2x 银块",
+      "items": [
+        {
+          "item": "pixelmon:silver_block",
+          "amount": 2
+        }
+      ]
+    }
+  ]
+}

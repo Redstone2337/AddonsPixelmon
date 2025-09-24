@@ -1,0 +1,42 @@
+{
+  "spec": "type1:GHOST",
+  "durations": [
+    {
+      "type": "add",
+      "amount": 90,
+      "unit": "MINUTES"
+    }
+  ],
+  "requirements": [
+    {
+      "type": "itemstack",
+      "error_message": "10x 恶魂之泪",
+      "items": [
+        {
+          "item": "minecraft:ghast_tear",
+          "amount": 10
+        }
+      ]
+    },
+    {
+      "type": "itemstack",
+      "error_message": "3x 灵魂火把",
+      "items": [
+        {
+          "item": "minecraft:soul_torch",
+          "amount": 3
+        }
+      ]
+    },
+    {
+      "type": "itemstack",
+      "error_message": "3x 灵魂沙",
+      "items": [
+        {
+          "item": "minecraft:soul_sand",
+          "amount": 3
+        }
+      ]
+    }
+  ]
+}
