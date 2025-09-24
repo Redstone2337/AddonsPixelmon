@@ -173,6 +173,11 @@ publishing {
             url "file://${project.projectDir}/repo"
         }
     }
+    java {
+        withSourcesJar()
+    }
+
+    build.dependsOn sourcesJar
 }
 
 tasks.withType(JavaCompile).configureEach {
