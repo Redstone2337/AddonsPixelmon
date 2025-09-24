@@ -1,0 +1,799 @@
+{
+  "stages": [
+    {
+      "objectives": [],
+      "result": [
+        {
+          "type": "pixelmon:close_screen"
+        },
+        {
+          "type": "pixelmon:open_professor_dialogue",
+          "dialogue": {
+            "pages": [
+              {
+                "title": " 紫藤博士 ",
+                "text": "你好，训练家，又见面了！看起来你捡到了一颗宝珠。 我研究这些已经有段时间了，而我认为其具有召唤传说宝可梦的力量。"
+              },
+              {
+                "title": " 紫藤博士 ",
+                "text": "如果你能帮我合成寒冽珠并填满，然后找到寒冽神社，我们就能召唤急冻鸟！"
+              }
+            ],
+            "rendering_handler": {
+              "type": "pixelmon:player",
+              "slim": true,
+              "texture": "pixelmon:textures/steve/professorwisteria.png"
+            }
+          }
+        }
+      ],
+      "result_sprites": [
+        {
+          "resource": "pixelmon:textures/item/npceditor.png"
+        }
+      ]
+    },
+    {
+      "objectives": [
+        {
+          "condition": {
+            "recipe": "pixelmon:summon/uno_orb",
+            "type": "pixelmon:recipe_matches"
+          },
+          "result": [
+            {
+              "spec": "random type1:ice !leg !ub lvl:20",
+              "type": "pixelmon:spawn_and_enter_battle"
+            }
+          ],
+          "required_amount": 1,
+          "name": {
+            "translate": "research.legendary.lugia.craft_uno_orb",
+            "fallback": "Craft an Orb of Frozen Souls"
+          },
+          "sprite": "pixelmon:textures/gui/research/encounter_grass.png",
+          "event": "pixelmon:craft_item"
+        },
+        {
+          "condition": {
+            "items": "pixelmon:uno_orb",
+            "item": {
+              "type": "pixelmon:context_item"
+            },
+            "type": "pixelmon:item_is_one_of"
+          },
+          "result": [
+            {
+              "exp": 20,
+              "type": "pixelmon:give_experience"
+            }
+          ],
+          "required_amount": 1,
+          "name": {
+            "translate": "research.legendary.lugia.fill_uno_orb",
+            "fallback": "Fill the Orb of Frozen Souls"
+          },
+          "sprite": {
+            "resource": "minecraft:textures/item/experience_bottle.png",
+            "description": "20 XP"
+          },
+          "event": "pixelmon:fill_shrine_orb"
+        },
+        {
+          "condition": {
+            "structures": [
+              "pixelmon:shrines/articuno"
+            ],
+            "type": "pixelmon:structure_is_one_of"
+          },
+          "result": [
+            {
+              "items": [
+                {
+                  "id": "pixelmon:poke_ball",
+                  "count": 10,
+                  "components": {
+                    "pixelmon:poke_ball": "ultra_ball"
+                  }
+                }
+              ],
+              "type": "pixelmon:give_item"
+            }
+          ],
+          "name": {
+            "translate": "research.legendary.lugia.find_uno_structure",
+            "fallback": "Find an Articuno Shrine"
+          },
+          "sprite": "pixelmon:textures/item/pokeballs/ultra_ball.png",
+          "event": "pixelmon:find_structure"
+        }
+      ],
+      "result": [
+        {
+          "type": "pixelmon:give_money",
+          "money": 500.0
+        },
+        {
+          "type": "pixelmon:give_experience",
+          "exp": 50
+        },
+        {
+          "type": "pixelmon:close_screen"
+        },
+        {
+          "type": "pixelmon:open_professor_dialogue",
+          "dialogue": {
+            "pages": [
+              {
+                "title": " 紫藤博士 ",
+                "text": "祝贺你找到寒冽神社！ 现在你应该要激活它，期间握紧寒冽珠召唤急冻鸟。"
+              },
+              {
+                "title": " 紫藤博士 ",
+                "text": "我想捕捉急冻鸟具有很大挑战性，但我对你有信心。 祝你好运，训练家！"
+              }
+            ],
+            "rendering_handler": {
+              "type": "pixelmon:player",
+              "slim": true,
+              "texture": "pixelmon:textures/steve/professorwisteria.png"
+            }
+          }
+        }
+      ],
+      "result_sprites": [
+        {
+          "resource": "pixelmon:textures/gui/research/money_pouch.png",
+          "description": "₽500"
+        },
+        {
+          "resource": "minecraft:textures/item/experience_bottle.png",
+          "description": "50 XP"
+        }
+      ]
+    },
+    {
+      "objectives": [
+        {
+          "condition": {
+            "spec": {
+              "value": "articuno",
+              "type": "pixelmon:constant_string"
+            },
+            "pokemon": {
+              "type": "pixelmon:context_pokemon",
+              "key": "pixelmon:pokemon"
+            },
+            "type": "pixelmon:spec_matches"
+          },
+          "result": [
+            {
+              "money": 500.0,
+              "type": "pixelmon:give_money"
+            }
+          ],
+          "name": {
+            "translate": "research.legendary.lugia.activate_uno_shrine",
+            "fallback": "Activate the Articuno Shrine"
+          },
+          "sprite": "pixelmon:textures/gui/research/money_pouch.png",
+          "event": "pixelmon:activate_shrine"
+        },
+        {
+          "condition": {
+            "spec": {
+              "value": "articuno",
+              "type": "pixelmon:constant_string"
+            },
+            "pokemon": {
+              "type": "pixelmon:context_pokemon",
+              "key": "pixelmon:pokemon"
+            },
+            "type": "pixelmon:spec_matches"
+          },
+          "result": [
+            {
+              "money": 500.0,
+              "type": "pixelmon:give_money"
+            }
+          ],
+          "name": {
+            "translate": "research.legendary.lugia.battle_uno",
+            "fallback": "Battle Articuno"
+          },
+          "sprite": "pixelmon:textures/gui/research/money_pouch.png",
+          "event": "pixelmon:enter_wild_battle"
+        },
+        {
+          "condition": {
+            "spec": {
+              "value": "articuno",
+              "type": "pixelmon:constant_string"
+            },
+            "pokemon": {
+              "type": "pixelmon:context_pokemon",
+              "key": "pixelmon:pokemon"
+            },
+            "type": "pixelmon:spec_matches"
+          },
+          "result": [
+            {
+              "money": 500.0,
+              "type": "pixelmon:give_money"
+            }
+          ],
+          "name": {
+            "translate": "research.legendary.lugia.capture_uno",
+            "fallback": "Capture Articuno"
+          },
+          "sprite": "pixelmon:textures/gui/research/money_pouch.png",
+          "event": "pixelmon:capture_pokemon"
+        }
+      ],
+      "result": [
+        {
+          "money": 500.0,
+          "type": "pixelmon:give_money"
+        },
+        {
+          "exp": 50,
+          "type": "pixelmon:give_experience"
+        },
+        {
+          "type": "pixelmon:close_screen"
+        },
+        {
+          "type": "pixelmon:open_professor_dialogue",
+          "dialogue": {
+            "pages": [
+              {
+                "title": " 紫藤博士 ",
+                "text": "恭喜你捕捉到急冻鸟！"
+              },
+              {
+                "title": " 紫藤博士 ",
+                "text": "下一步是合成雷泣珠并填满，然后找到雷泣神社。 祝你好运，训练家！"
+              }
+            ],
+            "rendering_handler": {
+              "type": "pixelmon:player",
+              "slim": true,
+              "texture": "pixelmon:textures/steve/professorwisteria.png"
+            }
+          }
+        }
+      ],
+      "result_sprites": [
+        {
+          "resource": "pixelmon:textures/gui/research/money_pouch.png",
+          "description": "₽500"
+        },
+        {
+          "resource": "minecraft:textures/item/experience_bottle.png",
+          "description": "50 XP"
+        }
+      ]
+    },
+    {
+      "objectives": [
+        {
+          "condition": {
+            "recipe": "pixelmon:summon/dos_orb",
+            "type": "pixelmon:recipe_matches"
+          },
+          "result": [
+            {
+              "spec": "random type1:electric !leg !ub lvl:20",
+              "type": "pixelmon:spawn_and_enter_battle"
+            }
+          ],
+          "name": {
+            "translate": "research.legendary.lugia.craft_dos_orb",
+            "fallback": "Craft an Orb of Static Souls"
+          },
+          "sprite": "pixelmon:textures/gui/research/encounter_grass.png",
+          "event": "pixelmon:craft_item"
+        },
+        {
+          "condition": {
+            "items": "pixelmon:dos_orb",
+            "item": {
+              "type": "pixelmon:context_item"
+            },
+            "type": "pixelmon:item_is_one_of"
+          },
+          "result": [
+            {
+              "exp": 20,
+              "type": "pixelmon:give_experience"
+            }
+          ],
+          "name": {
+            "translate": "research.legendary.lugia.fill_dos_orb",
+            "fallback": "Fill the Orb of Static Souls"
+          },
+          "sprite": {
+            "resource": "minecraft:textures/item/experience_bottle.png",
+            "description": "20 XP"
+          },
+          "event": "pixelmon:fill_shrine_orb"
+        },
+        {
+          "condition": {
+            "structures": [
+              "pixelmon:shrines/zapdos"
+            ],
+            "type": "pixelmon:structure_is_one_of"
+          },
+          "result": [
+            {
+              "items": [
+                {
+                  "id": "pixelmon:poke_ball",
+                  "count": 10,
+                  "components": {
+                    "pixelmon:poke_ball": "ultra_ball"
+                  }
+                }
+              ],
+              "type": "pixelmon:give_item"
+            }
+          ],
+          "name": {
+            "translate": "research.legendary.lugia.find_dos_structure",
+            "fallback": "Find a Zapdos Shrine"
+          },
+          "sprite": "pixelmon:textures/item/pokeballs/ultra_ball.png",
+          "event": "pixelmon:find_structure"
+        }
+      ],
+      "result": [
+        {
+          "type": "pixelmon:give_money",
+          "money": 500.0
+        },
+        {
+          "type": "pixelmon:give_experience",
+          "exp": 50
+        },
+        {
+          "type": "pixelmon:close_screen"
+        },
+        {
+          "type": "pixelmon:open_professor_dialogue",
+          "dialogue": {
+            "pages": [
+              {
+                "title": " 紫藤博士 ",
+                "text": "祝贺你找到雷泣神社！ 现在你应该要激活它，期间握紧雷泣珠召唤闪电鸟。"
+              },
+              {
+                "title": " 紫藤博士 ",
+                "text": "我想捕捉闪电鸟就像急冻鸟一样具有很大挑战性，但我依旧对你有信心。 祝你好运，训练家！"
+              }
+            ],
+            "rendering_handler": {
+              "type": "pixelmon:player",
+              "slim": true,
+              "texture": "pixelmon:textures/steve/professorwisteria.png"
+            }
+          }
+        }
+      ],
+      "result_sprites": [
+        {
+          "resource": "pixelmon:textures/gui/research/money_pouch.png",
+          "description": "₽500"
+        },
+        {
+          "resource": "minecraft:textures/item/experience_bottle.png",
+          "description": "50 XP"
+        }
+      ]
+    },
+    {
+      "objectives": [
+        {
+          "condition": {
+            "spec": {
+              "value": "zapdos",
+              "type": "pixelmon:constant_string"
+            },
+            "pokemon": {
+              "type": "pixelmon:context_pokemon",
+              "key": "pixelmon:pokemon"
+            },
+            "type": "pixelmon:spec_matches"
+          },
+          "result": [
+            {
+              "money": 500.0,
+              "type": "pixelmon:give_money"
+            }
+          ],
+          "name": {
+            "translate": "research.legendary.lugia.activate_dos_shrine",
+            "fallback": "Activate the Zapdos Shrine"
+          },
+          "sprite": "pixelmon:textures/gui/research/money_pouch.png",
+          "event": "pixelmon:activate_shrine"
+        },
+        {
+          "condition": {
+            "spec": {
+              "value": "zapdos",
+              "type": "pixelmon:constant_string"
+            },
+            "pokemon": {
+              "type": "pixelmon:context_pokemon",
+              "key": "pixelmon:pokemon"
+            },
+            "type": "pixelmon:spec_matches"
+          },
+          "result": [
+            {
+              "money": 500.0,
+              "type": "pixelmon:give_money"
+            }
+          ],
+          "name": {
+            "translate": "research.legendary.lugia.battle_dos",
+            "fallback": "Battle Zapdos"
+          },
+          "sprite": "pixelmon:textures/gui/research/money_pouch.png",
+          "event": "pixelmon:enter_wild_battle"
+        },
+        {
+          "condition": {
+            "spec": {
+              "value": "zapdos",
+              "type": "pixelmon:constant_string"
+            },
+            "pokemon": {
+              "type": "pixelmon:context_pokemon",
+              "key": "pixelmon:pokemon"
+            },
+            "type": "pixelmon:spec_matches"
+          },
+          "result": [
+            {
+              "money": 500.0,
+              "type": "pixelmon:give_money"
+            }
+          ],
+          "name": {
+            "translate": "research.legendary.lugia.capture_zapdos",
+            "fallback": "Capture Zapdos"
+          },
+          "sprite": "pixelmon:textures/gui/research/money_pouch.png",
+          "event": "pixelmon:capture_pokemon"
+        }
+      ],
+      "result": [
+        {
+          "money": 500.0,
+          "type": "pixelmon:give_money"
+        },
+        {
+          "exp": 50,
+          "type": "pixelmon:give_experience"
+        },
+        {
+          "type": "pixelmon:close_screen"
+        },
+        {
+          "type": "pixelmon:open_professor_dialogue",
+          "dialogue": {
+            "pages": [
+              {
+                "title": " 紫藤博士 ",
+                "text": "恭喜你捕捉到闪电鸟！ 堪称伟业，训练家！"
+              },
+              {
+                "title": " 紫藤博士 ",
+                "text": "下一步是合成炽炎珠并填满，然后找到炽炎神社。 祝你好运，训练家！"
+              }
+            ],
+            "rendering_handler": {
+              "type": "pixelmon:player",
+              "slim": true,
+              "texture": "pixelmon:textures/steve/professorwisteria.png"
+            }
+          }
+        }
+      ],
+      "result_sprites": [
+        {
+          "resource": "pixelmon:textures/gui/research/money_pouch.png",
+          "description": "₽500"
+        },
+        {
+          "resource": "minecraft:textures/item/experience_bottle.png",
+          "description": "50 XP"
+        }
+      ]
+    },
+    {
+      "objectives": [
+        {
+          "condition": {
+            "recipe": "pixelmon:summon/tres_orb",
+            "type": "pixelmon:recipe_matches"
+          },
+          "result": [
+            {
+              "spec": "random type1:fire !leg !ub lvl:20",
+              "type": "pixelmon:spawn_and_enter_battle"
+            }
+          ],
+          "name": {
+            "translate": "research.legendary.lugia.craft_tres_orb",
+            "fallback": "Craft an Orb of Fiery Souls"
+          },
+          "sprite": "pixelmon:textures/gui/research/encounter_grass.png",
+          "event": "pixelmon:craft_item"
+        },
+        {
+          "condition": {
+            "items": "pixelmon:tres_orb",
+            "item": {
+              "type": "pixelmon:context_item"
+            },
+            "type": "pixelmon:item_is_one_of"
+          },
+          "result": [
+            {
+              "exp": 20,
+              "type": "pixelmon:give_experience"
+            }
+          ],
+          "required_amount": 1,
+          "name": {
+            "translate": "research.legendary.lugia.fill_tres_orb",
+            "fallback": "Fill the Shrine Orb"
+          },
+          "sprite": {
+            "resource": "minecraft:textures/item/experience_bottle.png",
+            "description": "20 XP"
+          },
+          "event": "pixelmon:fill_shrine_orb"
+        },
+        {
+          "condition": {
+            "structures": [
+              "pixelmon:shrines/moltres"
+            ],
+            "type": "pixelmon:structure_is_one_of"
+          },
+          "result": [
+            {
+              "items": [
+                {
+                  "id": "pixelmon:poke_ball",
+                  "count": 10,
+                  "components": {
+                    "pixelmon:poke_ball": "ultra_ball"
+                  }
+                }
+              ],
+              "type": "pixelmon:give_item"
+            }
+          ],
+          "name": {
+            "translate": "research.legendary.lugia.find_tres_structure",
+            "fallback": "Find a Moltres Shrine"
+          },
+          "sprite": "pixelmon:textures/item/pokeballs/ultra_ball.png",
+          "event": "pixelmon:find_structure"
+        }
+      ],
+      "result": [
+        {
+          "money": 500.0,
+          "type": "pixelmon:give_money"
+        },
+        {
+          "exp": 50,
+          "type": "pixelmon:give_experience"
+        },
+        {
+          "type": "pixelmon:close_screen"
+        },
+        {
+          "type": "pixelmon:open_professor_dialogue",
+          "dialogue": {
+            "pages": [
+              {
+                "title": " 紫藤博士 ",
+                "text": "做得好，训练家！你找到了炽炎神社。 现在你应该要激活它，期间握紧炽炎珠召唤火焰鸟。"
+              },
+              {
+                "title": " 紫藤博士 ",
+                "text": "捕捉火焰鸟就是最后一步了。 这仍将是你的大挑战，但我相信你。"
+              },
+              {
+                "title": " 紫藤博士 ",
+                "text": "没有其他训练家曾经捕捉齐三只传说的鸟宝可梦。 你即将创造历史！"
+              },
+              {
+                "title": " 紫藤博士 ",
+                "text": "我的研究表明一旦集齐三只传说的鸟宝可梦，会出现一只更强大的宝可梦。 我等不及要看看会发生什么了！"
+              },
+              {
+                "title": " 紫藤博士 ",
+                "text": "祝你好运，训练家！"
+              }
+            ],
+            "rendering_handler": {
+              "type": "pixelmon:player",
+              "slim": true,
+              "texture": "pixelmon:textures/steve/professorwisteria.png"
+            }
+          }
+        }
+      ],
+      "result_sprites": [
+        {
+          "resource": "pixelmon:textures/gui/research/money_pouch.png",
+          "description": "₽500"
+        },
+        {
+          "resource": "minecraft:textures/item/experience_bottle.png",
+          "description": "50 XP"
+        }
+      ]
+    },
+    {
+      "objectives": [
+        {
+          "condition": {
+            "spec": {
+              "value": "moltres",
+              "type": "pixelmon:constant_string"
+            },
+            "pokemon": {
+              "type": "pixelmon:context_pokemon",
+              "key": "pixelmon:pokemon"
+            },
+            "type": "pixelmon:spec_matches"
+          },
+          "result": [
+            {
+              "money": 500.0,
+              "type": "pixelmon:give_money"
+            }
+          ],
+          "name": {
+            "translate": "research.legendary.lugia.activate_tres_shrine",
+            "fallback": "Activate the Moltres Shrine"
+          },
+          "sprite": "pixelmon:textures/gui/research/money_pouch.png",
+          "event": "pixelmon:activate_shrine"
+        },
+        {
+          "condition": {
+            "spec": {
+              "value": "moltres",
+              "type": "pixelmon:constant_string"
+            },
+            "pokemon": {
+              "type": "pixelmon:context_pokemon",
+              "key": "pixelmon:pokemon"
+            },
+            "type": "pixelmon:spec_matches"
+          },
+          "result": [
+            {
+              "money": 500.0,
+              "type": "pixelmon:give_money"
+            }
+          ],
+          "name": {
+            "translate": "research.legendary.lugia.battle_tres",
+            "fallback": "Battle Moltres"
+          },
+          "sprite": "pixelmon:textures/gui/research/money_pouch.png",
+          "event": "pixelmon:enter_wild_battle"
+        },
+        {
+          "condition": {
+            "spec": {
+              "value": "moltres",
+              "type": "pixelmon:constant_string"
+            },
+            "pokemon": {
+              "type": "pixelmon:context_pokemon",
+              "key": "pixelmon:pokemon"
+            },
+            "type": "pixelmon:spec_matches"
+          },
+          "result": [
+            {
+              "money": 500.0,
+              "type": "pixelmon:give_money"
+            }
+          ],
+          "name": {
+            "translate": "research.legendary.lugia.capture_moltres",
+            "fallback": "Capture Moltres"
+          },
+          "sprite": "pixelmon:textures/gui/research/money_pouch.png",
+          "event": "pixelmon:capture_pokemon"
+        }
+      ],
+      "result": [
+        {
+          "money": 2000.0,
+          "type": "pixelmon:give_money"
+        },
+        {
+          "exp": 50,
+          "type": "pixelmon:give_experience"
+        },
+        {
+          "spec": "lugia",
+          "type": "pixelmon:spawn_and_enter_battle"
+        }
+      ],
+      "result_sprites": [
+        {
+          "resource": "pixelmon:textures/gui/research/money_pouch.png",
+          "description": "₽500"
+        },
+        {
+          "resource": "pixelmon:textures/gui/research/encounter_grass.png",
+          "description": "???"
+        },
+        {
+          "resource": "minecraft:textures/item/experience_bottle.png",
+          "description": "50 XP"
+        }
+      ]
+    },
+    {
+      "objectives": [],
+      "result": [
+        {
+          "type": "pixelmon:close_screen"
+        },
+        {
+          "type": "pixelmon:open_professor_dialogue",
+          "dialogue": {
+            "pages": [
+              {
+                "title": " 紫藤博士 ",
+                "text": "哇噢，训练家，你做到了！ 你捕捉到三只传说的鸟宝可梦并且召唤出洛奇亚！"
+              },
+              {
+                "title": " 紫藤博士 ",
+                "text": "简直难以置信！你造就了历史！太感谢你帮助我完成研究了。 期待下次再见，训练家！"
+              }
+            ],
+            "rendering_handler": {
+              "type": "pixelmon:player",
+              "slim": true,
+              "texture": "pixelmon:textures/steve/professorwisteria.png"
+            }
+          }
+        }
+      ],
+      "result_sprites": [
+        {
+          "resource": "pixelmon:textures/gui/research/money_pouch.png",
+          "description": "₽500"
+        },
+        {
+          "resource": "minecraft:textures/item/experience_bottle.png",
+          "description": "50 XP"
+        }
+      ]
+    }
+  ],
+  "abandonable": false,
+  "repeatable": true,
+  "unique": true,
+  "name": {
+    "translate": "research.legendary.lugia",
+    "fallback": "Psychic Storm"
+  }
+}
