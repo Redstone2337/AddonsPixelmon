@@ -53,7 +53,8 @@ public class AddonsPixelmon {
         modEventBus.addListener(this::addCreative);
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
-        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC, "apd-settings.toml");
+        Config.logDebug("APD 公告模组已加载");
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {

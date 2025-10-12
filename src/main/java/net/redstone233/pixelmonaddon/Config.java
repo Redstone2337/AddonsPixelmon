@@ -1,43 +1,83 @@
 package net.redstone233.pixelmonaddon;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 // An example config class. This is not required, but it's a good idea to have one to keep your config organized.
 // Demonstrates how to use Neo's config APIs
 public class Config {
 
-    private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
+    public static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
+    public static final ModConfigSpec SPEC;
 
-    public static final ModConfigSpec.BooleanValue LOG_DIRT_BLOCK = BUILDER
-            .comment("Whether to log the dirt block on common setup")
-            .define("logDirtBlock", true);
+    // 调试模式
+    public static final ModConfigSpec.BooleanValue DEBUG_MODE;
+    public static final ModConfigSpec.BooleanValue SHOW_ANNOUNCEMENT;
 
-    public static final ModConfigSpec.IntValue MAGIC_NUMBER = BUILDER
-            .comment("A magic number")
-            .defineInRange("magicNumber", 42, 0, Integer.MAX_VALUE);
+    // 公告设置
+    public static final ModConfigSpec.ConfigValue<String> ANNOUNCEMENT_TITLE;
+    public static final ModConfigSpec.ConfigValue<List<? extends String>> ANNOUNCEMENT_BODY;
 
-    public static final ModConfigSpec.ConfigValue<String> MAGIC_NUMBER_INTRODUCTION = BUILDER
-            .comment("What you want the introduction message to be for the magic number")
-            .define("magicNumberIntroduction", "The magic number is... ");
+    // 屏幕设置
+    public static final ModConfigSpec.BooleanValue DISPLAY_CONFIRM_BUTTON;
+    public static final ModConfigSpec.BooleanValue DISPLAY_CANCEL_BUTTON;
+    public static final ModConfigSpec.BooleanValue DISPLAY_LINK_BUTTON;
+    public static final ModConfigSpec.ConfigValue<String> ON_BUTTON_LINK;
 
-    // a list of strings that are treated as resource locations for items
-    public static final ModConfigSpec.ConfigValue<List<? extends String>> ITEM_STRINGS = BUILDER
-            .comment("A list of items to log on common setup.")
-            .defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), () -> "", Config::validateItemName);
+    static {
+        BUILDER.push("APD Configuration");
 
-    static final ModConfigSpec SPEC = BUILDER.build();
+        DEBUG_MODE = BUILDER
+                .comment("用于输出是否公告显示成功或渲染成功")
+                .define("debugMode", false);
 
-    private static boolean validateItemName(final Object obj) {
-        return obj instanceof String itemName && BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse(itemName));
+        SHOW_ANNOUNCEMENT = BUILDER
+                .comment("用于设定玩家进入则显示一次，下次在进入就不会二次显示")
+                .define("showAnnouncement", true);
+
+        BUILDER.pop();
+
+        BUILDER.push("AnnouncementSettings");
+
+        ANNOUNCEMENT_TITLE = BUILDER
+                .comment("设置公告标题")
+                .define("announcementTitle", "测试公告");
+
+        ANNOUNCEMENT_BODY = BUILDER
+                .comment("设置公告文体")
+                .defineList("announcementBody",
+                        Arrays.asList("这是第1行", "这是第2行", "这是第3行"),
+                        obj -> obj instanceof String);
+
+        BUILDER.pop();
+
+        BUILDER.push("AnnouncementScreenSettings");
+
+        DISPLAY_CONFIRM_BUTTON = BUILDER
+                .comment("设置是否显示确定按钮(仅支持true或者false)")
+                .define("displayConfirmButton", true);
+
+        DISPLAY_CANCEL_BUTTON = BUILDER
+                .comment("设置是否显示取消按钮(仅支持true或者false)")
+                .define("displayCancelButton", true);
+
+        DISPLAY_LINK_BUTTON = BUILDER
+                .comment("设置是否显示直链按钮(仅支持true或者false)")
+                .define("displayLinkButton", false);
+
+        ON_BUTTON_LINK = BUILDER
+                .comment("设置直连按钮的链接")
+                .define("onButtonLink", "");
+
+        BUILDER.pop();
+        SPEC = BUILDER.build();
+    }
+
+    public static void logDebug(String message) {
+        if (DEBUG_MODE.get()) {
+            System.out.println("[APD Debug] " + message);
+        }
     }
 }
