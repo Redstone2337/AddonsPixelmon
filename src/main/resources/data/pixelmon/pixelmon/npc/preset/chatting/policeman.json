@@ -1,0 +1,163 @@
+{
+  "interactions": {
+    "values": [
+      {
+        "interactions": [
+          {
+            "event": "pixelmon:right_click",
+            "conditions": {
+              "type": "pixelmon:true"
+            },
+            "results": {
+              "value": [
+                {
+                  "title": "警察先生",
+                  "pages": [
+                    "嘿，不要使用“挖洞”来进入 别人的房子，明白吗？",
+                    "也不要出于某些原因对别的训练师 使用“小偷”。明白就回答我！"
+                  ],
+                  "type": "pixelmon:open_paged_dialogue"
+                }
+              ],
+              "type": "pixelmon:constant"
+            }
+          }
+        ]
+      },
+      {
+        "interactions": [
+          {
+            "event": "pixelmon:right_click",
+            "conditions": {
+              "type": "pixelmon:true"
+            },
+            "results": {
+              "value": [
+                {
+                  "title": "警察先生",
+                  "pages": [
+                    "我对通过宝可梦对战赚钱的行为有点意见。",
+                    "那听上去总归有点违法。"
+                  ],
+                  "type": "pixelmon:open_paged_dialogue"
+                }
+              ],
+              "type": "pixelmon:constant"
+            }
+          }
+        ]
+      },
+      {
+        "interactions": [
+          {
+            "event": "pixelmon:right_click",
+            "conditions": {
+              "type": "pixelmon:true"
+            },
+            "results": {
+              "value": [
+                {
+                  "title": "警察先生",
+                  "pages": [
+                    "那些该死的犯罪组织！ 我希望我能够 一个人把他们全部拿下。",
+                    "但是不——，总是会有那么一个孩子把我们的活 抢走。让警察完成他们的任务好吗！"
+                  ],
+                  "type": "pixelmon:open_paged_dialogue"
+                }
+              ],
+              "type": "pixelmon:constant"
+            }
+          }
+        ]
+      },
+      {
+        "interactions": [
+          {
+            "event": "pixelmon:right_click",
+            "conditions": {
+              "type": "pixelmon:true"
+            },
+            "results": {
+              "value": [
+                {
+                  "title": "警察先生",
+                  "pages": [
+                    "我是警犬科的一员。我真的很喜欢我的戴鲁比。",
+                    "追赶小偷，嗅出危险物品，这些她都能完成。"
+                  ],
+                  "type": "pixelmon:open_paged_dialogue"
+                }
+              ],
+              "type": "pixelmon:constant"
+            }
+          }
+        ]
+      }
+    ],
+    "type": "pixelmon:uniformly_random"
+  },
+  "properties": {
+    "value": {
+      "health": 20.0,
+      "eyeHeight": 1.0,
+      "dimensions": {
+        "width": 1.0,
+        "height": 2.0
+      },
+      "pushable": false,
+      "child": false,
+      "invulnerable": false,
+      "immovable": false,
+      "nameplate": true
+    },
+    "type": "pixelmon:constant"
+  },
+  "party": {
+    "value": {
+      "type": "pixelmon:empty"
+    },
+    "type": "pixelmon:constant"
+  },
+  "names": {
+    "values": [
+      "队长 Benny",
+      "检查员 Kenny",
+      "副手 Lenny",
+      "下士 Vinnie",
+      "中尉 Ronnie"
+    ],
+    "type": "pixelmon:uniformly_random"
+  },
+  "models": {
+    "values": [
+      {
+        "slim": false,
+        "texture": {
+          "resource": {
+            "resource": "pixelmon:textures/steve/policeman.png",
+            "fallback": "pixelmon:textures/steve/policeman.png"
+          },
+          "type": "pixelmon:fallback"
+        },
+        "type": "pixelmon:player"
+      }
+    ],
+    "type": "pixelmon:uniformly_random"
+  },
+  "goals": {
+    "type": "pixelmon:constant",
+    "value": {
+      "goals": [
+        {
+          "provider": {
+            "type": "pixelmon:random_stroll",
+            "speed_modifier": 0.4,
+            "interval": 20,
+            "check_no_action_time": true
+          },
+          "priority": 1
+        }
+      ]
+    }
+  }
+}

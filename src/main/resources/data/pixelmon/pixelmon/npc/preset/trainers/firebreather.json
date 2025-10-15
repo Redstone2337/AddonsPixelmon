@@ -1,0 +1,286 @@
+{
+  "interactions": {
+    "value": {
+      "interactions": [
+        {
+          "event": "pixelmon:hit_with_poke_ball",
+          "conditions": {
+            "player": {
+              "key": "pixelmon:player",
+              "type": "pixelmon:context_player"
+            },
+            "type": "pixelmon:can_battle"
+          },
+          "results": {
+            "value": [
+              {
+                "title": "喷火者",
+                "message": "训练我的宝可梦是我的热情所在。",
+                "type": "pixelmon:open_dialogue"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:right_click",
+          "conditions": {
+            "player": {
+              "key": "pixelmon:player",
+              "type": "pixelmon:context_player"
+            },
+            "type": "pixelmon:can_battle"
+          },
+          "results": {
+            "value": [
+              {
+                "title": "喷火者",
+                "message": "训练我的宝可梦是我的热情所在。",
+                "type": "pixelmon:open_dialogue"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:right_click",
+          "conditions": {
+            "type": "pixelmon:logical_not",
+              "condition": {
+                "condition": {
+                  "player": {
+                    "key": "pixelmon:player",
+                    "type": "pixelmon:context_player"
+                  },
+                  "type": "pixelmon:can_battle"
+                },
+                "type": "pixelmon:interaction_condition"
+              }
+          },
+          "results": {
+            "value": [
+              {
+                "messages": [
+                  {
+                    "text": "您没有可用于对战的宝可梦！"
+                  }
+                ],
+                "type": "pixelmon:message_player"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:close_dialogue",
+          "conditions": {
+            "type": "pixelmon:true"
+          },
+          "results": {
+            "value": [
+              {
+                "type": "pixelmon:player_start_npc_battle"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:lose_battle",
+          "conditions": {
+            "type": "pixelmon:true"
+          },
+          "results": {
+            "value": [
+              {
+                "title": "喷火者",
+                "message": "我的激情比以往任何时候燃烧得都要亮！",
+                "fire_close_event": false,
+                "type": "pixelmon:open_dialogue"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:win_battle",
+          "conditions": {
+            "type": "pixelmon:true"
+          },
+          "results": {
+            "value": [
+              {
+                "title": "喷火者",
+                "message": "我的激情已燃烧殆尽...",
+                "fire_close_event": false,
+                "type": "pixelmon:open_dialogue"
+              },
+              {
+                "money": 32.0,
+                "type": "pixelmon:give_money"
+              },
+              {
+                "type": "pixelmon:trigger_interaction_event",
+                "event": "pixelmon:defeat_trainer"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        }
+      ]
+    },
+    "type": "pixelmon:constant"
+  },
+  "properties": {
+    "value": {
+      "health": 20.0,
+      "eyeHeight": 1.9,
+      "dimensions": {
+        "width": 0.65,
+        "height": 2.0
+      },
+      "pushable": false,
+      "child": false,
+      "invulnerable": false,
+      "immovable": false,
+      "nameplate": true
+    },
+    "type": "pixelmon:constant"
+  },
+  "party": {
+    "value": {
+      "options": [
+        "Koffing",
+        "Koffing",
+        "Flareon",
+        "Growlithe",
+        "Growlithe",
+        "Weezing",
+        "Vulpix",
+        "Vulpix",
+        "Ninetales",
+        "Numel",
+        "Numel",
+        "Camerupt",
+        "Charmeleon",
+        "Charizard",
+        "Magmar",
+        "Ponyta",
+        "Rapidash",
+        "Slugma",
+        "Slugma",
+        "Magcargo",
+        "Houndour",
+        "Houndour",
+        "Houndoom",
+        "Torkoal",
+        "Pignite",
+        "Emboar",
+        "Magmortar",
+        "Pansear",
+        "Pansear",
+        "Simisear",
+        "Darumaka",
+        "Darumaka",
+        "Darmanitan",
+        "Heatmor",
+        "Pyroar",
+        "Salandit",
+        "Salazzle",
+        "Turtonator",
+        "Carkol",
+        "Carkol",
+        "Coalossal",
+        "Sizzlipede",
+        "Centiskorch",
+        "Entei"
+      ],
+      "min_selections": 1,
+      "max_selections": 6,
+      "type": "pixelmon:random_combination"
+    },
+    "type": "pixelmon:constant"
+  },
+  "names": {
+    "values": [
+      "Greg",
+      "Daniel",
+      "Nick",
+      "Shoru",
+      "Nicholas",
+      "Berter",
+      "James",
+      "Jay",
+      "Ike",
+      "Yumi",
+      "Leo",
+      "Garett"
+    ],
+    "type": "pixelmon:uniformly_random"
+  },
+  "models": {
+    "values": [
+      {
+        "slim": true,
+        "texture": {
+          "resource": {
+            "resource": "pixelmon:textures/steve/firebreather1.png",
+            "fallback": "pixelmon:textures/steve/firebreather1.png"
+          },
+          "type": "pixelmon:fallback"
+        },
+        "type": "pixelmon:player"
+      },
+      {
+        "slim": true,
+        "texture": {
+          "resource": {
+            "resource": "pixelmon:textures/steve/firebreather2.png",
+            "fallback": "pixelmon:textures/steve/firebreather2.png"
+          },
+          "type": "pixelmon:fallback"
+        },
+        "type": "pixelmon:player"
+      },
+      {
+        "slim": true,
+        "texture": {
+          "resource": {
+            "resource": "pixelmon:textures/steve/firebreather3.png",
+            "fallback": "pixelmon:textures/steve/firebreather3.png"
+          },
+          "type": "pixelmon:fallback"
+        },
+        "type": "pixelmon:player"
+      },
+      {
+        "slim": true,
+        "texture": {
+          "resource": {
+            "resource": "pixelmon:textures/steve/firebreather4.png",
+            "fallback": "pixelmon:textures/steve/firebreather4.png"
+          },
+          "type": "pixelmon:fallback"
+        },
+        "type": "pixelmon:player"
+      }
+    ],
+    "type": "pixelmon:uniformly_random"
+  },
+  "goals": {
+    "type": "pixelmon:constant",
+    "value": {
+      "goals": [
+        {
+          "provider": {
+            "type": "pixelmon:random_stroll",
+            "speed_modifier": 0.4,
+            "interval": 20,
+            "check_no_action_time": true
+          },
+          "priority": 1
+        }
+      ]
+    }
+  }
+}

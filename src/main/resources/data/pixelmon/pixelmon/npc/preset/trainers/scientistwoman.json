@@ -1,0 +1,251 @@
+{
+  "interactions": {
+    "value": {
+      "interactions": [
+        {
+          "event": "pixelmon:hit_with_poke_ball",
+          "conditions": {
+            "player": {
+              "key": "pixelmon:player",
+              "type": "pixelmon:context_player"
+            },
+            "type": "pixelmon:can_battle"
+          },
+          "results": {
+            "value": [
+              {
+                "title": "研究员",
+                "message": "我已经通过复杂的统计数据精心制定了战略。我不会输的！",
+                "type": "pixelmon:open_dialogue"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:right_click",
+          "conditions": {
+            "player": {
+              "key": "pixelmon:player",
+              "type": "pixelmon:context_player"
+            },
+            "type": "pixelmon:can_battle"
+          },
+          "results": {
+            "value": [
+              {
+                "title": "研究员",
+                "message": "我已经通过复杂的统计数据精心制定了战略。我不会输的！",
+                "type": "pixelmon:open_dialogue"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:right_click",
+          "conditions": {
+            "type": "pixelmon:logical_not",
+              "condition": {
+                "condition": {
+                  "player": {
+                    "key": "pixelmon:player",
+                    "type": "pixelmon:context_player"
+                  },
+                  "type": "pixelmon:can_battle"
+                },
+                "type": "pixelmon:interaction_condition"
+              }
+          },
+          "results": {
+            "value": [
+              {
+                "messages": [
+                  {
+                    "text": "您没有可用于对战的宝可梦！"
+                  }
+                ],
+                "type": "pixelmon:message_player"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:close_dialogue",
+          "conditions": {
+            "type": "pixelmon:true"
+          },
+          "results": {
+            "value": [
+              {
+                "type": "pixelmon:player_start_npc_battle"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:lose_battle",
+          "conditions": {
+            "type": "pixelmon:true"
+          },
+          "results": {
+            "value": [
+              {
+                "title": "研究员",
+                "message": "从统计数字上看，这正是我所期待的。",
+                "fire_close_event": false,
+                "type": "pixelmon:open_dialogue"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:win_battle",
+          "conditions": {
+            "type": "pixelmon:true"
+          },
+          "results": {
+            "value": [
+              {
+                "title": "研究员",
+                "message": "哦不，我的计算是错误的...",
+                "fire_close_event": false,
+                "type": "pixelmon:open_dialogue"
+              },
+              {
+                "money": 48.0,
+                "type": "pixelmon:give_money"
+              },
+              {
+                "type": "pixelmon:trigger_interaction_event",
+                "event": "pixelmon:defeat_trainer"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        }
+      ]
+    },
+    "type": "pixelmon:constant"
+  },
+  "properties": {
+    "value": {
+      "health": 20.0,
+      "eyeHeight": 1.9,
+      "dimensions": {
+        "width": 0.65,
+        "height": 2.0
+      },
+      "pushable": false,
+      "child": false,
+      "invulnerable": false,
+      "immovable": false,
+      "nameplate": true
+    },
+    "type": "pixelmon:constant"
+  },
+  "party": {
+    "value": {
+      "options": [
+        "Magnemite",
+        "Magnemite",
+        "Magneton",
+        "Magnezone",
+        "Koffing",
+        "Weezing",
+        "Voltorb",
+        "Voltorb",
+        "Electrode",
+        "Grimer",
+        "Muk",
+        "Ditto",
+        "Ditto",
+        "Porygon",
+        "Porygon",
+        "Porygon2",
+        "Porygon-Z",
+        "Klink",
+        "Klink",
+        "Klang",
+        "Klinklang",
+        "Solosis",
+        "Solosis",
+        "Duosion",
+        "Reuniclus",
+        "Omanyte",
+        "Omastar",
+        "Kabuto",
+        "Kabutops",
+        "Aerodactyl",
+        "Anorith",
+        "Armaldo",
+        "Cranidos",
+        "Rampardos",
+        "Shieldon",
+        "Bastiodon",
+        "Tirtouga",
+        "Carracosta",
+        "Archen",
+        "Archeops",
+        "Tyrunt",
+        "Tyrantrum",
+        "Amaura",
+        "Aurorus",
+        "Dracovish",
+        "Arctovish",
+        "Dracozolt",
+        "Arctozolt",
+        "Genesect"
+      ],
+      "min_selections": 2,
+      "max_selections": 4,
+      "type": "pixelmon:random_combination"
+    },
+    "type": "pixelmon:constant"
+  },
+  "names": {
+    "values": [
+      "Marie",
+      "Ada",
+      "Irène",
+      "Harriet",
+      "Sofia"
+    ],
+    "type": "pixelmon:uniformly_random"
+  },
+  "models": {
+    "values": [
+      {
+        "slim": true,
+        "texture": {
+          "resource": {
+            "resource": "pixelmon:textures/steve/scientist_f.png",
+            "fallback": "pixelmon:textures/steve/scientist_f.png"
+          },
+          "type": "pixelmon:fallback"
+        },
+        "type": "pixelmon:player"
+      }
+    ],
+    "type": "pixelmon:uniformly_random"
+  },
+  "goals": {
+    "type": "pixelmon:constant",
+    "value": {
+      "goals": [
+        {
+          "provider": {
+            "type": "pixelmon:random_stroll",
+            "speed_modifier": 0.4,
+            "interval": 20,
+            "check_no_action_time": true
+          },
+          "priority": 1
+        }
+      ]
+    }
+  }
+}

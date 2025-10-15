@@ -1,0 +1,264 @@
+{
+  "interactions": {
+    "value": {
+      "interactions": [
+        {
+          "event": "pixelmon:hit_with_poke_ball",
+          "conditions": {
+            "player": {
+              "key": "pixelmon:player",
+              "type": "pixelmon:context_player"
+            },
+            "type": "pixelmon:can_battle"
+          },
+          "results": {
+            "value": [
+              {
+                "title": "养鸟人",
+                "message": "我很乐意看到你有着什么种类的宝可梦。",
+                "type": "pixelmon:open_dialogue"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:right_click",
+          "conditions": {
+            "player": {
+              "key": "pixelmon:player",
+              "type": "pixelmon:context_player"
+            },
+            "type": "pixelmon:can_battle"
+          },
+          "results": {
+            "value": [
+              {
+                "title": "养鸟人",
+                "message": "我很乐意看到你有着什么种类的宝可梦。",
+                "type": "pixelmon:open_dialogue"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:right_click",
+          "conditions": {
+            "type": "pixelmon:logical_not",
+              "condition": {
+                "condition": {
+                  "player": {
+                    "key": "pixelmon:player",
+                    "type": "pixelmon:context_player"
+                  },
+                  "type": "pixelmon:can_battle"
+                },
+                "type": "pixelmon:interaction_condition"
+              }
+          },
+          "results": {
+            "value": [
+              {
+                "messages": [
+                  {
+                    "text": "您没有可用于对战的宝可梦！"
+                  }
+                ],
+                "type": "pixelmon:message_player"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:close_dialogue",
+          "conditions": {
+            "type": "pixelmon:true"
+          },
+          "results": {
+            "value": [
+              {
+                "type": "pixelmon:player_start_npc_battle"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:lose_battle",
+          "conditions": {
+            "type": "pixelmon:true"
+          },
+          "results": {
+            "value": [
+              {
+                "title": "养鸟人",
+                "message": "飞行属性宝可梦是真正的强者。这也难怪你会输。",
+                "fire_close_event": false,
+                "type": "pixelmon:open_dialogue"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:win_battle",
+          "conditions": {
+            "type": "pixelmon:true"
+          },
+          "results": {
+            "value": [
+              {
+                "title": "养鸟人",
+                "message": "我想其他种类的宝可梦也都很酷。",
+                "fire_close_event": false,
+                "type": "pixelmon:open_dialogue"
+              },
+              {
+                "money": 32.0,
+                "type": "pixelmon:give_money"
+              },
+              {
+                "type": "pixelmon:trigger_interaction_event",
+                "event": "pixelmon:defeat_trainer"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        }
+      ]
+    },
+    "type": "pixelmon:constant"
+  },
+  "properties": {
+    "value": {
+      "health": 20.0,
+      "eyeHeight": 1.9,
+      "dimensions": {
+        "width": 0.65,
+        "height": 2.0
+      },
+      "pushable": false,
+      "child": false,
+      "invulnerable": false,
+      "immovable": false,
+      "nameplate": true
+    },
+    "type": "pixelmon:constant"
+  },
+  "party": {
+    "value": {
+      "options": [
+        "Pidgey",
+        "Pidgey",
+        "Pidgeotto",
+        "Pidgeot",
+        "Spearow",
+        "Spearow",
+        "Fearow",
+        "Doduo",
+        "Doduo",
+        "Dodrio",
+        "Farfetchd",
+        "Hoothoot",
+        "Noctowl",
+        "Natu",
+        "Xatu",
+        "Skarmory",
+        "Murkrow",
+        "Murkrow",
+        "Wingull",
+        "Pelipper",
+        "Taillow",
+        "Taillow",
+        "Swellow",
+        "Swablu",
+        "Altaria",
+        "Starly",
+        "Starly",
+        "Staravia",
+        "Staraptor",
+        "Chatot",
+        "Pidove",
+        "Pidove",
+        "Tranquill",
+        "Unfezant",
+        "Archen",
+        "Archeops",
+        "Ducklett",
+        "Swanna",
+        "Rufflet",
+        "Rufflet",
+        "Braviary",
+        "Vullaby",
+        "Vullaby",
+        "Mandibuzz",
+        "Fletchling",
+        "Fletchling",
+        "Fletchinder",
+        "Talonflame",
+        "Hawlucha",
+        "Pikipek",
+        "Trumbeak",
+        "Toucannon",
+        "Oricorio",
+        "Cubone",
+        "Rookidee",
+        "Rookidee",
+        "Corvisquire",
+        "Corviknight",
+        "Cramorant",
+        "Tornadus"
+      ],
+      "min_selections": 3,
+      "max_selections": 6,
+      "type": "pixelmon:random_combination"
+    },
+    "type": "pixelmon:constant"
+  },
+  "names": {
+    "values": [
+      "Watson",
+      "Walter",
+      "Montgomery",
+      "Diego",
+      "Arthur",
+      "Callum",
+      "Gastby"
+    ],
+    "type": "pixelmon:uniformly_random"
+  },
+  "models": {
+    "values": [
+      {
+        "slim": true,
+        "texture": {
+          "resource": {
+            "resource": "pixelmon:textures/steve/ornithologist.png",
+            "fallback": "pixelmon:textures/steve/ornithologist.png"
+          },
+          "type": "pixelmon:fallback"
+        },
+        "type": "pixelmon:player"
+      }
+    ],
+    "type": "pixelmon:uniformly_random"
+  },
+  "goals": {
+    "type": "pixelmon:constant",
+    "value": {
+      "goals": [
+        {
+          "provider": {
+            "type": "pixelmon:random_stroll",
+            "speed_modifier": 0.4,
+            "interval": 20,
+            "check_no_action_time": true
+          },
+          "priority": 1
+        }
+      ]
+    }
+  }
+}

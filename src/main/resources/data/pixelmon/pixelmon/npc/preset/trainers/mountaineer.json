@@ -1,0 +1,259 @@
+{
+  "interactions": {
+    "value": {
+      "interactions": [
+        {
+          "event": "pixelmon:hit_with_poke_ball",
+          "conditions": {
+            "player": {
+              "key": "pixelmon:player",
+              "type": "pixelmon:context_player"
+            },
+            "type": "pixelmon:can_battle"
+          },
+          "results": {
+            "value": [
+              {
+                "title": "登山男",
+                "message": "我的宝可梦正在和我比赛赛跑。",
+                "type": "pixelmon:open_dialogue"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:right_click",
+          "conditions": {
+            "player": {
+              "key": "pixelmon:player",
+              "type": "pixelmon:context_player"
+            },
+            "type": "pixelmon:can_battle"
+          },
+          "results": {
+            "value": [
+              {
+                "title": "登山男",
+                "message": "我的宝可梦正在和我比赛赛跑。",
+                "type": "pixelmon:open_dialogue"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:right_click",
+          "conditions": {
+            "type": "pixelmon:logical_not",
+              "condition": {
+                "condition": {
+                  "player": {
+                    "key": "pixelmon:player",
+                    "type": "pixelmon:context_player"
+                  },
+                  "type": "pixelmon:can_battle"
+                },
+                "type": "pixelmon:interaction_condition"
+              }
+          },
+          "results": {
+            "value": [
+              {
+                "messages": [
+                  {
+                    "text": "您没有可用于对战的宝可梦！"
+                  }
+                ],
+                "type": "pixelmon:message_player"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:close_dialogue",
+          "conditions": {
+            "type": "pixelmon:true"
+          },
+          "results": {
+            "value": [
+              {
+                "type": "pixelmon:player_start_npc_battle"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:lose_battle",
+          "conditions": {
+            "type": "pixelmon:true"
+          },
+          "results": {
+            "value": [
+              {
+                "title": "登山男",
+                "message": "你也可以尝试赛跑，这对宝可梦是很好的锻炼。",
+                "fire_close_event": false,
+                "type": "pixelmon:open_dialogue"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:win_battle",
+          "conditions": {
+            "type": "pixelmon:true"
+          },
+          "results": {
+            "value": [
+              {
+                "title": "登山男",
+                "message": "我现在不想再赛跑了。",
+                "fire_close_event": false,
+                "type": "pixelmon:open_dialogue"
+              },
+              {
+                "money": 54.0,
+                "type": "pixelmon:give_money"
+              },
+              {
+                "type": "pixelmon:trigger_interaction_event",
+                "event": "pixelmon:defeat_trainer"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        }
+      ]
+    },
+    "type": "pixelmon:constant"
+  },
+  "properties": {
+    "value": {
+      "health": 20.0,
+      "eyeHeight": 1.9,
+      "dimensions": {
+        "width": 0.65,
+        "height": 2.0
+      },
+      "pushable": false,
+      "child": false,
+      "invulnerable": false,
+      "immovable": false,
+      "nameplate": true
+    },
+    "type": "pixelmon:constant"
+  },
+  "party": {
+    "value": {
+      "options": [
+        "Geodude",
+        "Geodude",
+        "Graveler",
+        "Golem",
+        "Onix",
+        "Onix",
+        "Steelix",
+        "Rhyhorn",
+        "Rhyhorn",
+        "Rhydon",
+        "Cubone",
+        "Marowak",
+        "Machop",
+        "Machop",
+        "Machoke",
+        "Machamp",
+        "Diglett",
+        "Dugtrio",
+        "Sandshrew",
+        "Sandshrew",
+        "Sandslash",
+        "Stonjourner",
+        "Rockruff",
+        "Rockruff",
+        "Lycanroc",
+        "Swinub",
+        "Piloswine",
+        "Nosepass",
+        "Nosepass",
+        "Probopass",
+        "Baltoy",
+        "Claydol",
+        "Numel",
+        "Camerupt",
+        "Zubat",
+        "Golbat",
+        "Crobat",
+        "Phanpy",
+        "Donphan",
+        "Dunsparce",
+        "Timburr",
+        "Gurdurr",
+        "Conkeldurr",
+        "Woobat",
+        "Swoobat",
+        "Dwebble",
+        "Crustle",
+        "Gligar",
+        "Torkoal",
+        "Bunnelby",
+        "Diggersby",
+        "Mudbray",
+        "Mudbray",
+        "Mudsdale",
+        "Terrakion"
+      ],
+      "min_selections": 2,
+      "max_selections": 6,
+      "type": "pixelmon:random_combination"
+    },
+    "type": "pixelmon:constant"
+  },
+  "names": {
+    "values": [
+      "Gerald",
+      "Oliver",
+      "Martin",
+      "Rupert",
+      "Victor",
+      "Travis",
+      "Brian"
+    ],
+    "type": "pixelmon:uniformly_random"
+  },
+  "models": {
+    "values": [
+      {
+        "slim": true,
+        "texture": {
+          "resource": {
+            "resource": "pixelmon:textures/steve/hiker.png",
+            "fallback": "pixelmon:textures/steve/hiker.png"
+          },
+          "type": "pixelmon:fallback"
+        },
+        "type": "pixelmon:player"
+      }
+    ],
+    "type": "pixelmon:uniformly_random"
+  },
+  "goals": {
+    "type": "pixelmon:constant",
+    "value": {
+      "goals": [
+        {
+          "provider": {
+            "type": "pixelmon:random_stroll",
+            "speed_modifier": 0.4,
+            "interval": 20,
+            "check_no_action_time": true
+          },
+          "priority": 1
+        }
+      ]
+    }
+  }
+}

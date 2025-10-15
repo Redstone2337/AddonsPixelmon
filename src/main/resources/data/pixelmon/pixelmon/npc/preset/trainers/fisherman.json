@@ -1,0 +1,256 @@
+{
+  "interactions": {
+    "value": {
+      "interactions": [
+        {
+          "event": "pixelmon:hit_with_poke_ball",
+          "conditions": {
+            "player": {
+              "key": "pixelmon:player",
+              "type": "pixelmon:context_player"
+            },
+            "type": "pixelmon:can_battle"
+          },
+          "results": {
+            "value": [
+              {
+                "title": "垂钓者",
+                "message": "你曾想过成为鲤鱼王会怎么样吗？",
+                "type": "pixelmon:open_dialogue"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:right_click",
+          "conditions": {
+            "player": {
+              "key": "pixelmon:player",
+              "type": "pixelmon:context_player"
+            },
+            "type": "pixelmon:can_battle"
+          },
+          "results": {
+            "value": [
+              {
+                "title": "垂钓者",
+                "message": "你曾想过成为鲤鱼王会怎么样吗？",
+                "type": "pixelmon:open_dialogue"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:right_click",
+          "conditions": {
+            "type": "pixelmon:logical_not",
+              "condition": {
+                "condition": {
+                  "player": {
+                    "key": "pixelmon:player",
+                    "type": "pixelmon:context_player"
+                  },
+                  "type": "pixelmon:can_battle"
+                },
+                "type": "pixelmon:interaction_condition"
+              }
+          },
+          "results": {
+            "value": [
+              {
+                "messages": [
+                  {
+                    "text": "您没有可用于对战的宝可梦！"
+                  }
+                ],
+                "type": "pixelmon:message_player"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:close_dialogue",
+          "conditions": {
+            "type": "pixelmon:true"
+          },
+          "results": {
+            "value": [
+              {
+                "type": "pixelmon:player_start_npc_battle"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:lose_battle",
+          "conditions": {
+            "type": "pixelmon:true"
+          },
+          "results": {
+            "value": [
+              {
+                "title": "垂钓者",
+                "message": "能在大海自由游动的感觉一定很棒。",
+                "fire_close_event": false,
+                "type": "pixelmon:open_dialogue"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        },
+        {
+          "event": "pixelmon:win_battle",
+          "conditions": {
+            "type": "pixelmon:true"
+          },
+          "results": {
+            "value": [
+              {
+                "title": "垂钓者",
+                "message": "我困在成为训练师这件事了。我希望我能变成宝可梦！",
+                "fire_close_event": false,
+                "type": "pixelmon:open_dialogue"
+              },
+              {
+                "money": 32.0,
+                "type": "pixelmon:give_money"
+              },
+              {
+                "type": "pixelmon:trigger_interaction_event",
+                "event": "pixelmon:defeat_trainer"
+              }
+            ],
+            "type": "pixelmon:constant"
+          }
+        }
+      ]
+    },
+    "type": "pixelmon:constant"
+  },
+  "properties": {
+    "value": {
+      "health": 20.0,
+      "eyeHeight": 1.9,
+      "dimensions": {
+        "width": 0.65,
+        "height": 2.0
+      },
+      "pushable": false,
+      "child": false,
+      "invulnerable": false,
+      "immovable": false,
+      "nameplate": true
+    },
+    "type": "pixelmon:constant"
+  },
+  "party": {
+    "value": {
+      "options": [
+        "Squirtle",
+        "Wartortle",
+        "Horsea",
+        "Magikarp",
+        "Gyarados",
+        "Blastoise",
+        "Tentacool",
+        "Krabby",
+        "Goldeen",
+        "Seaking",
+        "Staryu",
+        "Starmie",
+        "Lapras",
+        "Shellder",
+        "Remoraid",
+        "Octillery",
+        "Luvdisc",
+        "Clamperl",
+        "Gorebyss",
+        "Huntail",
+        "Carvanha",
+        "Sharpedo",
+        "Barboach",
+        "Whiscash",
+        "Feebas",
+        "Milotic",
+        "Kingdra",
+        "Wailmer",
+        "Wailord",
+        "Qwilfish",
+        "Chinchou",
+        "Lanturn",
+        "Relicanth",
+        "Finneon",
+        "Lumineon",
+        "Basculin",
+        "Alomomola",
+        "Skrelp",
+        "Dragalge",
+        "Dratini",
+        "Dragonair",
+        "Wishiwashi",
+        "Bruxish",
+        "Arrokuda",
+        "Barraskewda"
+      ],
+      "min_selections": 1,
+      "max_selections": 6,
+      "type": "pixelmon:random_combination"
+    },
+    "type": "pixelmon:constant"
+  },
+  "names": {
+    "values": [
+      "Wilton",
+      "Fins",
+      "Marvin",
+      "Marlin",
+      "Jack",
+      "Jill",
+      "David",
+      "Zack",
+      "Danny",
+      "Stephan",
+      "Scott",
+      "Todd",
+      "Tom",
+      "Mitchell"
+    ],
+    "type": "pixelmon:uniformly_random"
+  },
+  "models": {
+    "values": [
+      {
+        "slim": true,
+        "texture": {
+          "resource": {
+            "resource": "pixelmon:textures/steve/fisherman.png",
+            "fallback": "pixelmon:textures/steve/fisherman.png"
+          },
+          "type": "pixelmon:fallback"
+        },
+        "type": "pixelmon:player"
+      }
+    ],
+    "type": "pixelmon:uniformly_random"
+  },
+  "goals": {
+    "type": "pixelmon:constant",
+    "value": {
+      "goals": [
+        {
+          "provider": {
+            "type": "pixelmon:random_stroll",
+            "speed_modifier": 0.4,
+            "interval": 20,
+            "check_no_action_time": true
+          },
+          "priority": 1
+        }
+      ]
+    }
+  }
+}
