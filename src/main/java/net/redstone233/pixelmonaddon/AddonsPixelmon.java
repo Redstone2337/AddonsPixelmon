@@ -1,6 +1,8 @@
 package net.redstone233.pixelmonaddon;
 
 import net.minecraft.world.level.gameevent.GameEventListenerRegistry;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.redstone233.pixelmonaddon.commands.APDCommands;
 import net.redstone233.pixelmonaddon.handlers.WorldEnterHandler;
 import net.redstone233.pixelmonaddon.network.NetworkHandler;
 import org.slf4j.Logger;
@@ -41,6 +43,8 @@ public class AddonsPixelmon {
     public static final String MOD_ID = "apd";
     // Directly reference a slf4j logger
     public static final Logger LOGGER = LogUtils.getLogger();
+
+    public static final String VERSION = "0.1+build.7-hotfix.1";
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
@@ -94,5 +98,10 @@ public class AddonsPixelmon {
     public void onServerStarting(ServerStartingEvent event) {
         // Do something when the server starts
         LOGGER.info("HELLO from server starting");
+    }
+
+    @SubscribeEvent
+    public void registerCommands(RegisterCommandsEvent event) {
+        APDCommands.register(event.getDispatcher());
     }
 }
