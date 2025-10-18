@@ -1,232 +1,329 @@
 package net.redstone233.pixelmonaddon.screen;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.ObjectSelectionList;
+import net.minecraft.client.gui.components.StringWidget;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.Component;
+import net.minecraft.ChatFormatting;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.Util;
-import net.neoforged.fml.ModList;
-import net.neoforged.fml.loading.FMLLoader;
-import net.redstone233.pixelmonaddon.AddonsPixelmon;
-import net.redstone233.pixelmonaddon.Config;
+import net.redstone233.pixelmonaddon.button.ScrollableTextWidget;
+import net.redstone233.pixelmonaddon.config.AnnouncementConfig;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AnnouncementScreen extends Screen {
-    private final Screen parent;
-    private static boolean hasShown = false;
+    private final AnnouncementConfig config;
+    private ScrollableTextWidget scrollableText;
+    private int tickCount = 0;
+    private ResourceLocation iconTexture;
+    private ResourceLocation backgroundTexture;
 
-    public AnnouncementScreen(Screen parent) {
-        super(Component.literal(Config.ANNOUNCEMENT_TITLE.get()));
-        this.parent = parent;
-        Config.logDebug("公告屏幕已创建");
-    }
+    private StringWidget titleWidget;
+    private StringWidget subtitleWidget;
 
-    public static boolean shouldShowAnnouncement() {
-        boolean shouldShow = Config.SHOW_ANNOUNCEMENT.get() && !hasShown;
-        Config.logDebug("是否显示公告: " + shouldShow + " (配置: " + Config.SHOW_ANNOUNCEMENT.get() + ", 已显示: " + hasShown + ")");
-        return shouldShow;
-    }
-
-    public static void markAsShown() {
-        hasShown = true;
-        Config.logDebug("标记公告为已显示");
+    public AnnouncementScreen(AnnouncementConfig config) {
+        super(Component.literal("服务器公告"));
+        this.config = config != null ? config : new AnnouncementConfig();
     }
 
     @Override
     protected void init() {
         super.init();
 
-        Config.logDebug("初始化公告屏幕组件");
-
-        // 初始化公告列表 - 调整位置为标题下方
-        int listTop = 50; // 标题下方留出更多空间
-        int listBottom = this.height - 80;
-        AnnouncementList announcementList = new AnnouncementList(this.minecraft, this.width, listBottom - listTop, listTop, 20);
-        this.addRenderableWidget(announcementList);
-
-        // 添加公告内容
-        List<? extends String> announcementLines = Config.ANNOUNCEMENT_BODY.get();
-        for (String line : announcementLines) {
-            announcementList.addEntry(Component.literal(line));
-        }
-
-        Config.logDebug("添加了 " + announcementLines.size() + " 行公告内容");
-
-        // 按钮配置
+        int centerX = this.width / 2;
         int buttonWidth = 100;
         int buttonHeight = 20;
-        int buttonY = this.height - 40;
-        int totalButtons = getVisibleButtonCount();
-        int totalWidth = totalButtons * buttonWidth + (totalButtons - 1) * 10;
-        int startX = (this.width - totalWidth) / 2;
+        int buttonY = this.height - 30;
 
-        int buttonIndex = 0;
+        // 加载图标纹理
+        loadIconTexture();
 
-        // 确定按钮
-        if (Config.DISPLAY_CONFIRM_BUTTON.get()) {
-            Button confirmButton = Button.builder(Component.literal("确定"), button -> {
-                        Config.logDebug("确定按钮被点击");
-                        this.onClose();
-                    })
-                    .bounds(startX + buttonIndex * (buttonWidth + 10), buttonY, buttonWidth, buttonHeight)
-                    .build();
-            this.addRenderableWidget(confirmButton);
-            buttonIndex++;
-            Config.logDebug("确定按钮已创建");
+        // 加载背景纹理
+        loadBackgroundTexture();
+
+        // 创建标题和副标题
+        createTitleWidgets(centerX);
+
+        // 创建公告内容
+        MutableComponent contentText = createAnnouncementContent();
+
+        // 创建滚动文本部件
+        int contentColor = config.useCustomRGB ? config.contentColor : 0xFFFFFFFF;
+
+        if ((contentColor & 0xFFFFFF) == (0xB4303030 & 0xFFFFFF)) {
+            contentColor = 0xFFFFFFFF;
         }
 
-        // 直链按钮
-        if (Config.DISPLAY_LINK_BUTTON.get()) {
-            String linkUrl = Config.ON_BUTTON_LINK.get();
-            Button linkButton = Button.builder(Component.literal("立即前往"), button -> {
-                        Config.logDebug("直链按钮被点击，链接: " + linkUrl);
-                        if (!linkUrl.isEmpty()) {
-                            try {
-                                Util.getPlatform().openUri(URI.create(linkUrl));
-                            } catch (Exception e) {
-                                Config.logDebug("打开链接失败: " + e.getMessage());
-                            }
-                        }
-                    })
-                    .bounds(startX + buttonIndex * (buttonWidth + 10), buttonY, buttonWidth, buttonHeight)
-                    .build();
-            this.addRenderableWidget(linkButton);
-            buttonIndex++;
-            Config.logDebug("直链按钮已创建，链接: " + linkUrl);
-        }
+        scrollableText = new ScrollableTextWidget(
+                centerX - 150, 80, 300, this.height - 150,
+                contentText, this.font, this.minecraft,
+                contentColor
+        );
+        addRenderableWidget(scrollableText);
 
-        // 取消按钮
-        if (Config.DISPLAY_CANCEL_BUTTON.get()) {
-            Button cancelButton = Button.builder(Component.literal("取消"), button -> {
-                        Config.logDebug("取消按钮被点击");
-                        this.onClose();
-                    })
-                    .bounds(startX + buttonIndex * (buttonWidth + 10), buttonY, buttonWidth, buttonHeight)
-                    .build();
-            this.addRenderableWidget(cancelButton);
-            Config.logDebug("取消按钮已创建");
-        }
+        // 创建按钮
+        createButtons(centerX, buttonWidth, buttonHeight, buttonY);
 
-        Config.logDebug("按钮初始化完成，可见按钮数量: " + totalButtons);
+        System.out.println("公告屏幕初始化完成");
     }
 
-    private int getVisibleButtonCount() {
-        int count = 0;
-        if (Config.DISPLAY_CONFIRM_BUTTON.get()) count++;
-        if (Config.DISPLAY_LINK_BUTTON.get()) count++;
-        if (Config.DISPLAY_CANCEL_BUTTON.get()) count++;
-        return count;
+    private void loadIconTexture() {
+        if (config.showIcon && config.iconPath != null && !config.iconPath.isEmpty()) {
+            try {
+                iconTexture = ResourceLocation.parse(config.iconPath);
+            } catch (Exception e) {
+                System.err.println("无法加载图标纹理: " + config.iconPath);
+                iconTexture = null;
+            }
+        }
+    }
+
+    private void loadBackgroundTexture() {
+        if (config.useCustomAnnouncementBackground &&
+                config.announcementBackgroundPath != null &&
+                !config.announcementBackgroundPath.isEmpty()) {
+            try {
+                backgroundTexture = ResourceLocation.parse(config.announcementBackgroundPath);
+            } catch (Exception e) {
+                System.err.println("无法加载公告背景纹理: " + config.announcementBackgroundPath);
+                backgroundTexture = null;
+            }
+        }
+    }
+
+    private void createTitleWidgets(int centerX) {
+        int titleX = centerX;
+        if (config.showIcon && iconTexture != null) {
+            int iconAreaWidth = config.iconWidth + config.iconTextSpacing;
+            titleX = centerX + iconAreaWidth / 2;
+        }
+
+        // 主标题
+        String mainTitleText = config.mainTitle != null ? config.mainTitle : "服务器公告";
+        MutableComponent mainTitle = createStyledText(mainTitleText, config.mainTitleColor, true)
+                .withStyle(ChatFormatting.BOLD);
+
+        titleWidget = new StringWidget(titleX - 100, 30, 200, 20, mainTitle, this.font);
+        titleWidget.alignCenter();
+        addRenderableWidget(titleWidget);
+
+        // 副标题
+        String subTitleText = config.subTitle != null ? config.subTitle : "最新通知";
+        MutableComponent subTitle = createStyledText(subTitleText, config.subTitleColor, false);
+
+        subtitleWidget = new StringWidget(titleX - 100, 55, 200, 20, subTitle, this.font);
+        subtitleWidget.alignCenter();
+        addRenderableWidget(subtitleWidget);
+    }
+
+    private MutableComponent createStyledText(String text, int color, boolean useCustomRGB) {
+        MutableComponent component = Component.literal(text);
+        if (config.useCustomRGB) {
+            return component.withStyle(Style.EMPTY.withColor(color));
+        } else {
+            ChatFormatting formatting = findMatchingFormatting(color);
+            return component.withStyle(formatting);
+        }
+    }
+
+    private ChatFormatting findMatchingFormatting(int color) {
+        int rgbColor = color & 0xFFFFFF;
+        for (ChatFormatting formatting : ChatFormatting.values()) {
+            if (formatting.isColor() && formatting.getColor() != null) {
+                int formattingColor = formatting.getColor();
+                if ((formattingColor & 0xFFFFFF) == rgbColor) {
+                    return formatting;
+                }
+            }
+        }
+        return ChatFormatting.WHITE;
+    }
+
+    private MutableComponent createAnnouncementContent() {
+        MutableComponent root = Component.empty();
+        List<String> contentLines = getContentStrings();
+
+        for (int i = 0; i < contentLines.size(); i++) {
+            String line = contentLines.get(i);
+
+            if (line.trim().isEmpty()) {
+                root.append(Component.literal("\n"));
+                continue;
+            }
+
+            MutableComponent lineText = parseFormattedText(line);
+            root.append(lineText);
+
+            if (i < contentLines.size() - 1) {
+                root.append(Component.literal("\n"));
+            }
+        }
+
+        return root;
+    }
+
+    private MutableComponent parseFormattedText(String text) {
+        MutableComponent result = Component.empty();
+        Pattern pattern = Pattern.compile("(&#[0-9a-fA-F]{6}|§[0-9a-fk-or]|[^&§]+)");
+        Matcher matcher = pattern.matcher(text);
+        Style currentStyle = Style.EMPTY;
+
+        while (matcher.find()) {
+            String segment = matcher.group();
+
+            if (segment.startsWith("&#")) {
+                try {
+                    int rgb = Integer.parseInt(segment.substring(2), 16);
+                    currentStyle = currentStyle.withColor(rgb);
+                } catch (NumberFormatException e) {
+                    System.err.println("无效的RGB颜色代码: " + segment);
+                }
+            } else if (segment.startsWith("§")) {
+                ChatFormatting formatting = ChatFormatting.getByCode(segment.charAt(1));
+                if (formatting != null) {
+                    if (formatting == ChatFormatting.RESET) {
+                        currentStyle = Style.EMPTY;
+                    } else if (formatting.isColor()) {
+                        currentStyle = currentStyle.withColor(formatting);
+                    }
+                }
+            } else {
+                MutableComponent textSegment = Component.literal(segment).setStyle(currentStyle);
+                result.append(textSegment);
+            }
+        }
+
+        return result;
+    }
+
+    private List<String> getContentStrings() {
+        List<String> defaultContent = List.of(
+                "§a欢迎游玩，我们团队做的模组！",
+                " ",
+                "§e一些提醒：",
+                "§f1. 模组仅限于1.21.7~1.21.8 NeoForge",
+                "§f2. 模组目前是半成品",
+                "§f3. 后面会继续更新",
+                " ",
+                "§b模组随缘更新",
+                "§c若发现bug可以向模组作者或者仓库反馈！"
+        );
+
+        return config.announcementContent != null && !config.announcementContent.isEmpty()
+                ? config.announcementContent
+                : defaultContent;
+    }
+
+    private void createButtons(int centerX, int buttonWidth, int buttonHeight, int buttonY) {
+        // 确定按钮
+        String confirmText = config.confirmButtonText != null ? config.confirmButtonText : "确定";
+        Component confirmButtonText = createStyledText(confirmText, 0xFFFFFF, false);
+
+        addRenderableWidget(Button.builder(confirmButtonText, button -> this.onClose())
+                .pos(centerX - buttonWidth - 5, buttonY)
+                .size(buttonWidth, buttonHeight)
+                .build());
+
+        // 前往投递按钮
+        String submitText = config.submitButtonText != null ? config.submitButtonText : "前往投递";
+        Component submitButtonText = createStyledText(submitText, 0xFFFFFF, false);
+        String buttonLink = Objects.requireNonNullElse(config.buttonLink, "https://example.com");
+
+        addRenderableWidget(Button.builder(submitButtonText, button -> openLink(buttonLink))
+                .pos(centerX + 5, buttonY)
+                .size(buttonWidth, buttonHeight)
+                .build());
+    }
+
+    private void openLink(String url) {
+        try {
+            if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                url = "https://" + url;
+            }
+            Util.getPlatform().openUri(URI.create(url));
+        } catch (Exception e) {
+            if (this.minecraft != null && this.minecraft.player != null) {
+                this.minecraft.player.displayClientMessage(Component.literal("无法打开链接: " + e.getMessage()), false);
+            }
+        }
     }
 
     @Override
     public void render(@NotNull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        this.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
+        // 渲染背景
+        renderBackground(guiGraphics);
 
-        // 绘制标题
-        int titleY = 20;
-        guiGraphics.drawCenteredString(this.font, this.title, this.width / 2, titleY, 0xFFFFFF);
+        // 绘制图标
+        renderIcon(guiGraphics);
 
-        // 绘制版本信息 - 在标题下方同一行，分别位于左下角和右下角
-        int versionY = titleY + this.font.lineHeight + 5; // 标题下方5像素
-
-        // 游戏版本 - 左下角
-        String gameVersion = "Minecraft " + getMinecraftVersion();
-        guiGraphics.drawString(this.font, gameVersion, 10, versionY, 0xAAAAAA, false);
-
-        // 模组版本 - 右下角
-        String modVersion = getModVersionString();
-        int textWidth = this.font.width(modVersion);
-        guiGraphics.drawString(this.font, modVersion, this.width - textWidth - 10, versionY, 0xAAAAAA, false);
-
+        // 渲染其他部件
         super.render(guiGraphics, mouseX, mouseY, partialTick);
 
-        Config.logDebug("公告屏幕渲染完成");
+        // 自动滚动
+        handleAutoScroll();
     }
 
-    private String getMinecraftVersion() {
-        try {
-            // 获取Minecraft版本
-            return FMLLoader.versionInfo().mcVersion(); // 通常格式为 "1.21.1" 或类似
-        } catch (Exception e) {
-            Config.logDebug("获取Minecraft版本失败: " + e.getMessage());
-            return "1.21.1";
-        }
-    }
-
-    private String getModVersionString() {
-        try {
-            var modContainer = ModList.get().getModContainerById(AddonsPixelmon.MOD_ID).orElse(null); // 替换为您的模组ID
-            if (modContainer != null) {
-                String version = modContainer.getModInfo().getVersion().toString();
-                // 格式化为类似 "APD 0.1+build.4" 的格式
-                return modContainer.getModInfo().getDisplayName() + " " + version;
+    private void renderBackground(GuiGraphics guiGraphics) {
+        if (config.useCustomAnnouncementBackground && backgroundTexture != null) {
+            try {
+                guiGraphics.blit(backgroundTexture, 0, 0, 0, 0, this.width, this.height, this.width, this.height);
+            } catch (Exception e) {
+                guiGraphics.fill(0, 0, this.width, this.height, 0xB4303030);
             }
-        } catch (Exception e) {
-            Config.logDebug("获取模组版本失败: " + e.getMessage());
+        } else {
+            guiGraphics.fill(0, 0, this.width, this.height, 0xB4303030);
         }
-        return "APD 0.1+build.4";
+    }
+
+    private void renderIcon(GuiGraphics guiGraphics) {
+        if (config.showIcon && iconTexture != null) {
+            int iconX = (this.width / 2) - 150 - config.iconWidth - config.iconTextSpacing;
+            int iconY = 30;
+
+            try {
+                guiGraphics.blit(
+                        iconTexture,
+                        iconX, iconY,
+                        0, 0,
+                        config.iconWidth,
+                        config.iconHeight,
+                        config.iconWidth,
+                        config.iconHeight
+                );
+            } catch (Exception e) {
+                System.err.println("无法绘制图标: " + e.getMessage());
+            }
+        }
+    }
+
+    private void handleAutoScroll() {
+        if (scrollableText != null && tickCount % 2 == 0) {
+            double maxScroll = scrollableText.getTotalHeight() - scrollableText.getHeight();
+            if (maxScroll > 0) {
+                double scrollAmount = scrollableText.getScrollAmount() + (config.scrollSpeed / 20.0);
+                if (scrollAmount > maxScroll) scrollAmount = 0;
+                scrollableText.setScrollAmount(Math.min(scrollAmount, maxScroll));
+            }
+        }
     }
 
     @Override
-    public void onClose() {
-        markAsShown();
-        if (this.minecraft != null) {
-            this.minecraft.setScreen(this.parent);
-        }
-        Config.logDebug("公告屏幕关闭");
+    public void tick() {
+        super.tick();
+        tickCount++;
     }
 
     @Override
     public boolean shouldCloseOnEsc() {
-        return Config.DISPLAY_CANCEL_BUTTON.get();
-    }
-
-    // 公告列表内部类
-    private static class AnnouncementList extends ObjectSelectionList<AnnouncementList.Entry> {
-        public AnnouncementList(Minecraft minecraft, int width, int height, int y0, int itemHeight) {
-            super(minecraft, width, height, y0, itemHeight);
-        }
-
-        public void addEntry(Component text) {
-            this.addEntry(new Entry(text));
-        }
-
-        @Override
-        public int getRowWidth() {
-            return this.width - 20;
-        }
-
-        @Override
-        protected int getScrollbarPosition() {
-            return this.width - 6;
-        }
-
-        private class Entry extends ObjectSelectionList.Entry<Entry> {
-            private final Component text;
-
-            public Entry(Component text) {
-                this.text = text;
-            }
-
-            @Override
-            public void render(GuiGraphics guiGraphics, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean isMouseOver, float partialTick) {
-                guiGraphics.drawString(AnnouncementList.this.minecraft.font, this.text, left + 5, top + 2, 0xFFFFFF, false);
-            }
-
-            @Override
-            public @NotNull Component getNarration() {
-                return Component.empty();
-            }
-
-            @Override
-            public boolean mouseClicked(double mouseX, double mouseY, int button) {
-                return false;
-            }
-        }
+        return true;
     }
 }
