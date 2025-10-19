@@ -2,32 +2,63 @@
 package net.redstone233.pixelmonaddon.network;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtIo;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
+import net.redstone233.pixelmonaddon.AddonsPixelmon;
 import net.redstone233.pixelmonaddon.screen.AnnouncementScreen;
+
+import java.io.DataInput;
+import java.io.DataOutput;
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ClientPayloadHandler {
 
+    private static final String DISPLAYED_WORLDS_FILE = "displayed_worlds.dat";
+
     public static void handleAnnouncement(final AnnouncementPayload payload, final IPayloadContext context) {
         context.enqueueWork(() -> {
-            // 检查世界哈希值是否已显示过
-            String currentWorldHash = getCurrentWorldHash();
-            if (!payload.worldHash().equals(currentWorldHash)) {
-                // 显示公告屏幕
+            Set<String> displayedWorlds = loadDisplayedWorldHashes();
+            if (!displayedWorlds.contains(payload.worldHash())) {
                 Minecraft.getInstance().setScreen(new AnnouncementScreen(payload.config()));
-                // 保存当前世界哈希值
-                saveDisplayedWorldHash(payload.worldHash());
+                displayedWorlds.add(payload.worldHash());
+                saveDisplayedWorldHashes(displayedWorlds);
             }
         });
     }
 
-    private static String getCurrentWorldHash() {
-        // 从本地存储获取已显示的世界哈希值
-        // 这里可以使用NBT、配置文件或其他持久化方式
-        return ""; // 实现获取逻辑
+    private static Set<String> loadDisplayedWorldHashes() {
+        try {
+            File file = getDisplayedWorldsFile();
+            if (file.exists()) {
+                CompoundTag nbt = NbtIo.read((DataInput) getDisplayedWorldsFile());
+                if (nbt != null) {
+                    return new HashSet<>(nbt.getAllKeys());
+                }
+            }
+        } catch (IOException e) {
+            AddonsPixelmon.LOGGER.error("发生错误：", e);
+        }
+        return new HashSet<>();
     }
 
-    private static void saveDisplayedWorldHash(String hash) {
-        // 保存已显示的世界哈希值到本地存储
-        // 实现保存逻辑
+    private static void saveDisplayedWorldHashes(Set<String> worldHashes) {
+        try {
+            CompoundTag nbt = new CompoundTag();
+            for (String hash : worldHashes) {
+                nbt.putBoolean(hash, true);
+            }
+            NbtIo.write(nbt, (DataOutput) getDisplayedWorldsFile());
+        } catch (IOException e) {
+            AddonsPixelmon.LOGGER.error("发生错误：", e);
+        }
+    }
+
+    private static File getDisplayedWorldsFile() {
+        return new File(Minecraft.getInstance().gameDirectory, "config/" + DISPLAYED_WORLDS_FILE);
     }
 }
