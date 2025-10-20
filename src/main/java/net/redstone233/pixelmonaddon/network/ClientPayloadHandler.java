@@ -4,6 +4,8 @@ package net.redstone233.pixelmonaddon.network;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtIo;
+import net.neoforged.fml.loading.FMLConfig;
+import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.redstone233.pixelmonaddon.AddonsPixelmon;
 import net.redstone233.pixelmonaddon.screen.AnnouncementScreen;
@@ -59,6 +61,6 @@ public class ClientPayloadHandler {
     }
 
     private static File getDisplayedWorldsFile() {
-        return new File(Minecraft.getInstance().gameDirectory, "config/" + DISPLAYED_WORLDS_FILE);
+        return new File(Minecraft.getInstance().gameDirectory, FMLConfig.defaultConfigPath() + DISPLAYED_WORLDS_FILE);
     }
 }
